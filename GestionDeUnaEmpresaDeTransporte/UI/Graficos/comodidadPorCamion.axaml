@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="clr-namespace:GestionDeUnaEmpresaDeTransporte.Graficos"
+        mc:Ignorable="d"
+        Width="1200" Height="430"
+        MinWidth="1200" MinHeight="430"
+        MaxWidth="1500" MaxHeight="1000"
+        x:Class="GestionDeUnaEmpresaDeTransporte.Graficos.comodidadPorCamion"
+        Title="Comodidades por camión">
+        
+        <DockPanel
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                
+                <Menu DockPanel.Dock="Top" 
+                      VerticalAlignment="Top">
+                
+                        <MenuItem Header="_Archivo">
+                                <MenuItem Name="OpExit" 
+                                          Header="_Salir" />
+                        </MenuItem>
+                
+                        <MenuItem Header="_Ayuda">
+                                <MenuItem Name="OpAbout" 
+                                          Header="Acerca _de..."/>
+                        </MenuItem>
+                </Menu>
+                
+                <WrapPanel DockPanel.Dock="Top"
+                           Orientation="Vertical"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center">
+                        
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="5">
+                                
+                                <ComboBox Name="CbOpcion">
+                                        <ComboBoxItem Name="BtAdquisicion"
+                                                      HorizontalAlignment="Stretch"
+                                                      HorizontalContentAlignment="Center"
+                                                      Content="Fecha Adquisicion">
+                                                
+                                        </ComboBoxItem>
+                                        <ComboBoxItem Name="BtFabricacion"
+                                                      HorizontalAlignment="Stretch"
+                                                      HorizontalContentAlignment="Center"
+                                                      Content="Fecha Fabricacion">
+                                                
+                                        </ComboBoxItem>
+                                </ComboBox>
+                                
+                                <DatePicker Name="DpFecha"
+                                            DayVisible="False"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="5"/>
+                                
+                        </StackPanel>
+                        
+                </WrapPanel>
+                
+                <ui:Chart
+                        Name="ChGrf"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+        </DockPanel>
+</Window>
