@@ -2,29 +2,85 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
         x:Class="GestionDeUnaEmpresaDeTransporte.UI.MainWindow"
         Title="GestionDeUnaEmpresaDeTransporte">
         
-        <StackPanel>
-                <StackPanel>
+        <DockPanel
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                
+                <Menu DockPanel.Dock="Top" 
+                      VerticalAlignment="Top">
+                
+                        <MenuItem Header="_Archivo">
+                                <MenuItem Name="OpExit" 
+                                          Header="_Salir" />
+                        </MenuItem>
+                        
+                        <MenuItem Header="_Gráficos">
+                                <MenuItem Name="OpGraficaComodidadPorCamion" 
+                                          Header="_Comodidades por camión" />
+                                
+                                <MenuItem Name="OpActividadPorCamion" 
+                                          Header="_Actividad por camión" />
+                        </MenuItem>
+                
+                        <MenuItem Header="_Ayuda">
+                                <MenuItem Name="OpAbout" 
+                                          Header="Acerca _de..."/>
+                        </MenuItem>
+                </Menu>
+                
+                <StackPanel Orientation="Vertical">
                         <!--80% PANTALLA - Transportes, flota y clientes-->
                         <StackPanel>
                                 <!--Transportes-->
+                                <Border Margin="5"
+                                        BorderThickness="1"
+                                        CornerRadius="3"
+                                        BorderBrush="Black"
+                                        Height="250"
+                                        Width="640">
+                                </Border>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Orientation="Horizontal">
                                 <!--Flota y clientes-->
                                 <StackPanel>
                                         <!--Flota-->
+                                        <Border Margin="5"
+                                                BorderThickness="1"
+                                                CornerRadius="3"
+                                                BorderBrush="Black"
+                                                Height="250"
+                                                Width="320">
+                                                
+                                        </Border>
                                 </StackPanel>
                                 <StackPanel>
                                         <!--Clientes-->
+                                        <Border Margin="5"
+                                                BorderThickness="1"
+                                                CornerRadius="3"
+                                                BorderBrush="Black"
+                                                Height="250"
+                                                Width="320">
+                                                
+                                        </Border>
                                 </StackPanel>
                         </StackPanel>
                         
                 </StackPanel>
                 <StackPanel>
                         <!--20% PANTALLA - Busquedas-->
+                        <Border Margin="5"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                BorderBrush="Black"
+                                Height="500"
+                                Width="160">
+                                
+                        </Border>
                 </StackPanel>
-        </StackPanel>
+        </DockPanel>
 </Window>
