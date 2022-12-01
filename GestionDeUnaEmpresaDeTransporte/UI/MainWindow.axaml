@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
         x:Class="GestionDeUnaEmpresaDeTransporte.UI.MainWindow"
+        WindowState="Maximized"
         Title="GestionDeUnaEmpresaDeTransporte">
         
         <DockPanel
