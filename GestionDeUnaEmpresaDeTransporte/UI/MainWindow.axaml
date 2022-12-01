@@ -36,7 +36,7 @@
                         <!--80% PANTALLA - Transportes, flota y clientes-->
                         <StackPanel>
                                 <!--Transportes-->
-                                <Border Margin="5"
+                                <Border Margin="1"
                                         BorderThickness="1"
                                         CornerRadius="3"
                                         BorderBrush="Black"
@@ -48,7 +48,7 @@
                                 <!--Flota y clientes-->
                                 <StackPanel>
                                         <!--Flota-->
-                                        <Border Margin="5"
+                                        <Border Margin="1"
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
@@ -59,7 +59,7 @@
                                 </StackPanel>
                                 <StackPanel>
                                         <!--Clientes-->
-                                        <Border Margin="5"
+                                        <Border Margin="1"
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
@@ -73,7 +73,7 @@
                 </StackPanel>
                 <StackPanel>
                         <!--20% PANTALLA - Busquedas-->
-                        <Border Margin="5"
+                        <Border Margin="1"
                                 BorderThickness="1"
                                 CornerRadius="3"
                                 BorderBrush="Black"
