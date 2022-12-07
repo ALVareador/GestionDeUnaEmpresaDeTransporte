@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using ControlFlota.Core;
 using ControlFlota.UI;
 using fleetControlAvalonia;
+using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
 namespace ControlFlota.UI
 {

@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ControlFlota.UI;
+namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
        
     public partial class VehicleDlg : Window

@@ -6,7 +6,7 @@
         Width="450" Height="530"
         MinWidth="300" MinHeight="450"
         MaxWidth="500" MaxHeight="600"
-        x:Class="ControlFlota.UI.VehicleDlg"
+        x:Class="GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota.VehicleDlg"
         Title="VehicleInfo">
     
     <StackPanel Margin="5">
