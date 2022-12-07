@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ControlFlota.UI.MainWindow"
+        Title="ControlFlota">
+    
+    <DockPanel HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch">
+        
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Name="addButton"> Add Vehicle </Button>
+            <Button Name="modButton"> Modify Vehicle </Button>
+            <Button Name="delButton"> Delete Vehicle </Button>
+            
+        </StackPanel>
+        
+        <Border    Margin="5"
+                   BorderThickness="1"
+                   CornerRadius="3"
+                   BorderBrush="Black">
+
+            <DataGrid Name="vehicleGrid" 
+                      Margin="5"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      AlternatingRowBackground="Whitesmoke">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Marca" Binding="{Binding brand}"/>
+                    <DataGridTextColumn Header="Matricula" Binding="{Binding license}"/>
+                    <DataGridTextColumn Header="Modelo" Binding="{Binding model}"/>
+                    <DataGridTextColumn Header="Gasoil" Binding="{Binding fuelPerKM}"/>
+                    <DataGridTextColumn Header="Fecha Adquisicion" Binding="{Binding adqDate}"/>
+                    <DataGridTextColumn Header="Fecha Fabricacion" Binding="{Binding fabrDate}"/>
+                    <DataGridTextColumn Header="Wifi" Binding="{Binding wifi}"/>
+                    <DataGridTextColumn Header="Bluetooth" Binding="{Binding bluetooth}"/>
+                    <DataGridTextColumn Header="Ac" Binding="{Binding ac}"/>
+                    <DataGridTextColumn Header="Cama" Binding="{Binding bed}"/>
+                    <DataGridTextColumn Header="Tv" Binding="{Binding tv}"/>
+                        
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        
+    </DockPanel>
+</Window>

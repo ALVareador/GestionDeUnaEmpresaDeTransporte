@@ -1,0 +1,113 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Width="450" Height="530"
+        MinWidth="300" MinHeight="450"
+        MaxWidth="500" MaxHeight="600"
+        x:Class="ControlFlota.UI.VehicleDlg"
+        Title="VehicleInfo">
+    
+    <StackPanel Margin="5">
+        <Border
+            BorderThickness="1"
+            CornerRadius="3"
+            BorderBrush="Black"
+            VerticalAlignment="Stretch">
+            
+            <StackPanel
+                Orientation="Vertical">
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Tipo" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <ComboBox Margin="2" Name="EdVehicleType">
+                        <ComboBoxItem Margin="2" Content="Truck" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+                        <ComboBoxItem Margin="2" Content="Van" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+                        <ComboBoxItem Margin="2" Content="Artruck" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+                    </ComboBox>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Marca" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <TextBox Margin="2" Name="EdBrand" />
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Matricula" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <TextBox Margin="2" Name="EdLicense"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Modelo" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <TextBox Margin="2" Name="EdModel"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Gasoil por KM" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <NumericUpDown
+                        Margin="2" Name="EdFuelPerKM"
+                        Minimum="1"
+                        Value="10" />
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Fecha Aquisicion" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <DatePicker Margin="2" Name="EdAdqDate"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Fecha Fabricacion" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <DatePicker Margin="2" Name="EdAdqFabrDate"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Wifi" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <CheckBox Margin="2" Name="EdWifi"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Bluetooth" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <CheckBox Margin="2" Name="EdBluetooth"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Aire Acondicionado" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <CheckBox Margin="2" Name="EdAc"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Cama" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <CheckBox Margin="2" Name="EdBed"/>
+                </DockPanel>
+                
+                <DockPanel Margin="2">
+                    <Label Margin="2" Content="Tv" DockPanel.Dock="Left" HorizontalAlignment="Left" />
+                    <CheckBox Margin="2" Name="EdTv"/>
+                </DockPanel>
+                
+            </StackPanel>
+            
+        </Border>
+        
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="5">
+            
+            <Button Name="BtCancel"
+                    Content="Cancel"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Center" />
+            
+            <Button Name="BtOk"
+                    Content="Ok"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Center" />
+            
+        </StackPanel>
+    </StackPanel>
+</Window>
