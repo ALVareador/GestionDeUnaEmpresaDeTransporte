@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
 
 namespace GestionDeUnaEmpresaDeTransporte.Graficos;
 

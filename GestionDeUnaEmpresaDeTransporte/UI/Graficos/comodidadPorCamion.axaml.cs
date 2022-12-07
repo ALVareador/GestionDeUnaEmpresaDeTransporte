@@ -4,6 +4,8 @@ using Avalonia.Media;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ControlFlota.Core;
+using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
 
 namespace GestionDeUnaEmpresaDeTransporte.Graficos;
 
@@ -25,7 +27,7 @@ public partial class comodidadPorCamion : Window
     /// Crea una grafica a partir de una lista de la flota.
     /// </summary>
     /// <param name="f">Lista de la flota</param>
-    public comodidadPorCamion(Flota f)
+    public comodidadPorCamion(FleetControl f)
     {
         InitializeComponent();
 #if DEBUG
@@ -39,51 +41,20 @@ public partial class comodidadPorCamion : Window
         opFecha.SelectedDate = new DateTimeOffset(DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy")));
         var opOpcion = this.FindControl<ComboBox>("CbOpcion");
         opOpcion.SelectedIndex = 0;
-        /*var opEnero = this.FindControl<Button>("BtEnero");
-        var opFebrero = this.FindControl<Button>("BtFebrero");
-        var opMarzo = this.FindControl<Button>("BtMarzo");
-        var opAbril = this.FindControl<Button>("BtAbril");
-        var opMayo = this.FindControl<Button>("BtMayo");
-        var opJunio = this.FindControl<Button>("BtJunio");
-        var opJulio = this.FindControl<Button>("BtJulio");
-        var opAgosto = this.FindControl<Button>("BtAgosto");
-        var opSetiembre = this.FindControl<Button>("BtSetiembre");
-        var opOctubre = this.FindControl<Button>("BtOctubre");
-        var opNoviembre = this.FindControl<Button>("BtNoviembre");
-        var opDiciembre = this.FindControl<Button>("BtDiciembre");
-        var opOlder = this.FindControl<Button>("BtOlder");
-        var opAdquisicion = this.FindControl<Button>("BtAdquisicion");
-        var opFabricacion = this.FindControl<Button>("BtFabricacion");*/
-            
+
         this.Chart.LegendY = "Nº de camiones";
         this.Chart.LegendX = "Comodidades"; 
         this.Chart.Values = valoresComodidades(f); 
         this.Chart.Labels = new []{ "Wifi", "Bluetooth", "Aire acondicionado", "Litera de descanso", "TV", "Total" };
-        //this.Chart.IsVisible = false;
-        //this.Chart.Height = 50;
         this.Chart.Type = Chart.ChartType.Bars; 
         this.Chart.DataPen = new Pen( Brushes.IndianRed, 20 );
         
         opExit.Click += (_, _) => this.Close(); 
-        opAbout.Click += (_, _) => this.OnAbout();
         opFecha.SelectedDateChanged += (_, _) => this.FiltrarPorFecha(opFecha.SelectedDate, f, opcionAdquision);
         opOpcion.SelectionChanged += (_, _) => this.CambiarOpcion(opOpcion.SelectedIndex, opFecha.SelectedDate, f);
-        /*opAdquisicion.Click += (_, _) => this.opcionAdquision = true; 
-        opFabricacion.Click += (_, _) => this.opcionAdquision = false; 
-        opEnero.Click += (_, _) => this.FiltrarPorFecha(1, f, opcionAdquision);
-        opFebrero.Click += (_, _) => this.FiltrarPorFecha(2, f, opcionAdquision); 
-        opMarzo.Click += (_, _) => this.FiltrarPorFecha(3, f, opcionAdquision); 
-        opAbril.Click += (_, _) => this.FiltrarPorFecha(4, f, opcionAdquision); 
-        opMayo.Click += (_, _) => this.FiltrarPorFecha(5, f, opcionAdquision); 
-        opJunio.Click += (_, _) => this.FiltrarPorFecha(6, f, opcionAdquision); 
-        opJulio.Click += (_, _) => this.FiltrarPorFecha(7, f, opcionAdquision); 
-        opAgosto.Click += (_, _) => this.FiltrarPorFecha(8, f, opcionAdquision); 
-        opSetiembre.Click += (_, _) => this.FiltrarPorFecha(9, f, opcionAdquision); 
-        opOctubre.Click += (_, _) => this.FiltrarPorFecha(10, f, opcionAdquision);*/
-
     }
 
-    private void CambiarOpcion(int opOpcionSelectedIndex, DateTimeOffset? opFechaSelectedDate, Flota flota)
+    private void CambiarOpcion(int opOpcionSelectedIndex, DateTimeOffset? opFechaSelectedDate, FleetControl flota)
     {
         if (opOpcionSelectedIndex == 0)
         {
@@ -102,9 +73,9 @@ public partial class comodidadPorCamion : Window
     /// <param name="mes">Mes del que queremos ver los camiones.</param>
     /// <param name="f">Lista de la flota.</param>
     /// <param name="opcionA">Opcion seleccionada para mostrar los camiones por fecha de adquisicion o por fecha de fabricacion.</param>
-    private void FiltrarPorFecha(DateTimeOffset? mes, Flota f, bool opcionA) 
+    private void FiltrarPorFecha(DateTimeOffset? mes, FleetControl f, bool opcionA) 
     { 
-        Flota flotaFiltrada = new Flota();
+        FleetControl flotaFiltrada = new FleetControl();
         
         if (mes.Value.Month == 0)
         {
@@ -112,20 +83,20 @@ public partial class comodidadPorCamion : Window
         }
         else
         { 
-            foreach (var xCamion in f.Camiones)
+            foreach (var vehicle in f)
             {
                 if (opcionA == true)
                 {
-                    if (xCamion.FechaAdquisicion.Month == mes.Value.Month && xCamion.FechaAdquisicion.Year == mes.Value.Year)
+                    if (vehicle.adqDate.Month == mes.Value.Month && vehicle.adqDate.Year == mes.Value.Year)
                     {
-                        flotaFiltrada.Camiones.Add(xCamion);
+                        flotaFiltrada.Add(vehicle);
                     }
                 }
                 else
                 {
-                    if (xCamion.FechaFabricación.Month == mes.Value.Month && xCamion.FechaFabricación.Year == mes.Value.Year)
+                    if (vehicle.fabrDate.Month == mes.Value.Month && vehicle.fabrDate.Year == mes.Value.Year)
                     {
-                        flotaFiltrada.Camiones.Add(xCamion);
+                        flotaFiltrada.Add(vehicle);
                     }
                 }
             }
@@ -141,35 +112,35 @@ public partial class comodidadPorCamion : Window
     /// </summary>
     /// <param name="flota">Lista de la flota</param>
     /// <returns>Array con el numero de comodidades.</returns>
-    private IEnumerable<int> valoresComodidades(Flota flota) 
+    private IEnumerable<int> valoresComodidades(FleetControl flota) 
     {
         
         int[] comodidades = { 0, 0, 0, 0, 0, 0}; 
-        if (flota.Camiones != null)
+        if (flota != null)
         {
-            foreach (var camion in flota.Camiones)
+            foreach (var vehicle in flota)
             {
-                if (camion.Wifi)
+                if (vehicle.wifi)
                 {
                     comodidades[0] = comodidades[0] + 1;
                 }
 
-                if (camion.Bluetooth)
+                if (vehicle.bluetooth)
                 {
                     comodidades[1] = comodidades[1] + 1;
                 }
 
-                if (camion.AireAcondicionado)
+                if (vehicle.ac)
                 {
                     comodidades[2] = comodidades[2] + 1;
                 }
 
-                if (camion.LiteraDeDescando)
+                if (vehicle.bed)
                 {
                     comodidades[3] = comodidades[3] + 1;
                 }
 
-                if (camion.TV)
+                if (vehicle.tv)
                 {
                     comodidades[4] = comodidades[4] + 1;
                 }
@@ -187,33 +158,53 @@ public partial class comodidadPorCamion : Window
     /// <param name="mes">Mes seleccionado.</param>
     private void PintarGrafica(short mes)
     {
-        this.Chart.DataPen = mes switch
+        switch (mes)
         {
-            00 => new Pen(Brushes.IndianRed, 20),
-            01 => new Pen(Brushes.Navy, 20),
-            02 => new Pen(Brushes.Cyan, 20),
-            03 => new Pen(Brushes.Aquamarine, 20),
-            04 => new Pen(Brushes.DarkGreen, 20),
-            05 => new Pen(Brushes.GreenYellow, 20),
-            06 => new Pen(Brushes.Yellow, 20),
-            07 => new Pen(Brushes.Gold, 20),
-            08 => new Pen(Brushes.Orange, 20),
-            09 => new Pen(Brushes.OrangeRed, 20),
-            10 => new Pen(Brushes.DarkRed, 20),
-            11 => new Pen(Brushes.DarkViolet, 20),
-            12 => new Pen(Brushes.Violet, 20),
-            _ => this.Chart.DataPen
-        };
+            case 00:
+                this.Chart.DataPen = new Pen(Brushes.IndianRed, 20);
+                break;
+            case 01:
+                this.Chart.DataPen = new Pen(Brushes.Navy, 20);
+                break;
+            case 02:
+                this.Chart.DataPen = new Pen(Brushes.Cyan, 20);
+                break;
+            case 03:
+                this.Chart.DataPen = new Pen(Brushes.Aquamarine, 20);
+                break;
+            case 04:
+                this.Chart.DataPen = new Pen(Brushes.DarkGreen, 20);
+                break;
+            case 05:
+                this.Chart.DataPen = new Pen(Brushes.GreenYellow, 20);
+                break;
+            case 06:
+                this.Chart.DataPen = new Pen(Brushes.Yellow, 20);
+                break;
+            case 07:
+                this.Chart.DataPen = new Pen(Brushes.Gold, 20);
+                break;
+            case 08:
+                this.Chart.DataPen = new Pen(Brushes.Orange, 20);
+                break;
+            case 09:
+                this.Chart.DataPen = new Pen(Brushes.OrangeRed, 20);
+                break;
+            case 10:
+                this.Chart.DataPen = new Pen(Brushes.DarkRed, 20);
+                break;
+            case 11:
+                this.Chart.DataPen = new Pen(Brushes.DarkViolet, 20);
+                break;
+            case 12:
+                this.Chart.DataPen = new Pen(Brushes.Violet, 20);
+                break;
+            default:
+                this.Chart.DataPen = this.Chart.DataPen;
+                break;
+        }
     }
-    
-    /// <summary>
-    /// Muestra la ventana sobre la aplicacion.
-    /// </summary>
-    void OnAbout() 
-    { 
-        new AboutWindow().ShowDialog( this );
-    } 
-    
+
     void InitializeComponent() 
     { 
         AvaloniaXamlLoader.Load(this);
@@ -221,7 +212,7 @@ public partial class comodidadPorCamion : Window
 
     Chart Chart { get; }
     
-    private static Flota FlotaDefault = new Flota();
+    private static FleetControl FlotaDefault = new FleetControl();
     
     private bool opcionAdquision = true;
 }

@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:GestionDeUnaEmpresaDeTransporte.Graficos"
+        xmlns:graficos="clr-namespace:GestionDeUnaEmpresaDeTransporte.UI.Graficos"
         mc:Ignorable="d"
         Width="1000" Height="400"
         MinWidth="1000" MinHeight="400"
@@ -61,7 +62,7 @@
                         
                 </StackPanel>
                 
-                <ui:Chart
+                <graficos:Chart
                         Name="ChGrf"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch" />
