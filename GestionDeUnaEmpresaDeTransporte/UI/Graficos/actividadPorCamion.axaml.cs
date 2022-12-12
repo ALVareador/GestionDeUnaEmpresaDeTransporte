@@ -218,4 +218,3 @@ public partial class actividadPorCamion : Window
 
     private bool opcionSalida = true;
 }
-

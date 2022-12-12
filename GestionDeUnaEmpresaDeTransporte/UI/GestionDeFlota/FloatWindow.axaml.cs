@@ -10,9 +10,9 @@ using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
 namespace ControlFlota.UI
 {
-    public partial class MainWindow : Window
+    public partial class FloatWindow : Window
     {
-        public MainWindow()
+        public FloatWindow()
         {
             InitializeComponent();
 #if DEBUG

@@ -33,7 +33,6 @@
       <Folder Include="UI\Busquedas" />
       <Folder Include="UI\GestionDeClientes" />
       <Folder Include="UI\GestionDeFlota" />
-      <Folder Include="UI\Graficos" />
       <Folder Include="UI\Transportes" />
     </ItemGroup>
     <ItemGroup>
@@ -44,6 +43,13 @@
       <Compile Update="UI\MainWindow.axaml.cs">
         <DependentUpon>MainWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Graficos\actividadPorCamion.axaml.cs">
+        <DependentUpon>actividadPorCamion.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeClientes\ClienteWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
