@@ -51,5 +51,8 @@
       <Compile Update="UI\GestionDeClientes\ClienteWindow.axaml.cs">
         <DependentUpon>MainWindow.axaml</DependentUpon>
       </Compile>
+      <Compile Update="UI\Busquedas\Disponibilidad.axaml.cs">
+        <DependentUpon>Disponibilidad.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>
