@@ -1,9 +1,14 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ControlFlota.Core;
 using fleetControlAvalonia;
+using GestionDeUnaEmpresaDeTransporte.Core.Transportes;
+using GestionDeUnaEmpresaDeTransporte.Graficos;
 using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
+using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
+using ProyDIA.UI;
 
 namespace GestionDeUnaEmpresaDeTransporte.UI
 {
@@ -15,6 +20,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
 #if DEBUG
             this.AttachDevTools();
 #endif
+            //Flota
             var btInsert = this.FindControl<Button>( "addButton" );
             var btMod = this.FindControl<Button>( "modButton" );
             var btDel = this.FindControl<Button>( "delButton" );
@@ -30,6 +36,44 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
 
             this.FleetControl = XmlFleetControl.RecuperaXml();
             dtTrips.Items = this.FleetControl;
+            
+            //Transportes
+            var btRegistrar = this.FindControl<Button>("BtRegistrar");
+            var dtTransportes = this.FindControl<DataGrid>("DtTransportes");
+            var opDeleteAll = this.FindControl<MenuItem>("OpDeleteAll");
+            
+            Debug.Assert(opDeleteAll != null, "opDeleteAll not found in XAML");
+            Debug.Assert(btRegistrar != null, "btRegistrar not found in XAML");
+            Debug.Assert(dtTransportes != null, "dtTransportes not found in XAML");
+
+            
+            opDeleteAll.Click += (_, _) => this.OnDeleteAll();
+            btRegistrar.Click += (_, _) => this.OnAdd();
+            dtTransportes.SelectionChanged += (_, _) => this.OnTransporteSelected();
+            this.Closed += (_, _) => this.OnClose();
+            
+            this.RegistroTransportes = XmlRegistroTransportes.RecuperaXml();
+            dtTransportes.Items = this.RegistroTransportes;
+            
+            //Grafica
+
+            var opActividadPorCamion = this.FindControl<MenuItem>("OpActividadPorCamion");
+            var opGraficaComodidadPorCamion = this.FindControl<MenuItem>("OpGraficaComodidadPorCamion");
+
+            opActividadPorCamion.Click += (_, _) => abrirGraficaActividadPorCamion(RegistroTransportes);
+            opGraficaComodidadPorCamion.Click += (_, _) => abrirGraficaComodidadPorCamion(FleetControl);
+        }
+
+        async private void abrirGraficaActividadPorCamion(RegistroTransportes registroTransportes)
+        {
+            var graficaActividadComodidadPorCamion = new actividadPorCamion(registroTransportes);
+            await graficaActividadComodidadPorCamion.ShowDialog( this );
+        }
+
+        async private void abrirGraficaComodidadPorCamion(FleetControl FleetControl)
+        {
+            var graficaComodidadPorCamion = new comodidadPorCamion(FleetControl);
+            await graficaComodidadPorCamion.ShowDialog( this );
         }
 
         private void OnDel()
@@ -107,6 +151,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         void OnClose()
         {
             new XmlFleetControl( this.FleetControl ).GuardaXml();
+            new XmlRegistroTransportes(this.RegistroTransportes).GuardaXml();
         }
         
 
@@ -152,6 +197,77 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         }
 
         public FleetControl FleetControl {
+            get;
+        }
+        
+        //Flota
+        
+        public void OnExit()
+        {
+            new XmlRegistroTransportes(this.RegistroTransportes).GuardaXml();
+            this.Close();
+        }
+
+        async void OnAdd()
+        {
+            var transporteDlg = new TransporteDlg();
+            await transporteDlg.ShowDialog(this);
+
+        
+            if(!transporteDlg.IsCancelled)
+            {
+                var t = new Transporte(transporteDlg.Matricula,
+                    transporteDlg.Tipo, transporteDlg.Cliente,
+                    transporteDlg.FechaContra, transporteDlg.Kms,
+                    transporteDlg.FechaSal, transporteDlg.FechaEntre);
+                t.SueldoHora = transporteDlg.SueldoHora;
+                t.PrecioLitro = transporteDlg.PrecioLitro;
+                t.CantLtKms = transporteDlg.CantLtKms;
+                t.Update();
+
+                this.RegistroTransportes.Add(t);
+            }
+        
+
+            return;
+        }
+
+        void OnTransporteSelected()
+        {
+            var dtTransportes = this.FindControl<DataGrid>("DtTransportes");
+        
+
+            Debug.Assert(dtTransportes != null, "dtTransportes not found in XAML");
+
+            Transporte? transporte = (Transporte) dtTransportes.SelectedItem;
+            int position = dtTransportes.SelectedIndex;
+        
+            var transporteDlg = new TransporteDlg(transporte);
+            transporteDlg.ShowDialog(this);
+
+            if (!transporteDlg.IsCancelled)
+            {
+                var t = new Transporte(transporteDlg.Matricula,
+                    transporteDlg.Tipo, transporteDlg.Cliente,
+                    transporteDlg.FechaContra, transporteDlg.Kms,
+                    transporteDlg.FechaSal, transporteDlg.FechaEntre);
+                t.SueldoHora = transporteDlg.SueldoHora;
+                t.PrecioLitro = transporteDlg.PrecioLitro;
+                t.CantLtKms = transporteDlg.CantLtKms;
+                t.Update();
+
+                this.RegistroTransportes.Modificar_av(position, t);
+            }
+            
+        }
+
+        void OnDeleteAll()
+        {
+            this.RegistroTransportes.Clear();
+        }
+
+        public RegistroTransportes RegistroTransportes
+        {
             get;
         }
     }

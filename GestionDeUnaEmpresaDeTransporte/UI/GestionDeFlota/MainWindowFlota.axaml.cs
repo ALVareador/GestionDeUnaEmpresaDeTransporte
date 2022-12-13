@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ControlFlota.Core;
-using ControlFlota.UI;
 using fleetControlAvalonia;
-using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
-namespace ControlFlota.UI
+namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota
 {
-    public partial class MainWindow : Window
+    public partial class MainWindowFlota : Window
     {
-        public MainWindow()
+        public MainWindowFlota()
         {
             InitializeComponent();
 #if DEBUG

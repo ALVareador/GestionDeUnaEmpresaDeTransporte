@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Avalonia.Media;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
+using Avalonia.Media;
+using GestionDeUnaEmpresaDeTransporte.Core.Transportes;
 
-namespace GestionDeUnaEmpresaDeTransporte.Graficos;
+namespace GestionDeUnaEmpresaDeTransporte.UI.Graficos;
 
 /// <summary>
 /// Muestra el numero de transportes para un camion en concreto.
@@ -27,7 +27,7 @@ public partial class actividadPorCamion : Window
     /// Crea una nueva grafica a partir de una lista de transportes.
     /// </summary>
     /// <param name="t">Lista de transportes.</param>
-    public actividadPorCamion(Transportes t)
+    public actividadPorCamion(RegistroTransportes t)
     {
         InitializeComponent();
 #if DEBUG
@@ -36,7 +36,6 @@ public partial class actividadPorCamion : Window
 
         this.Chart = this.FindControl<Chart>( "ChGrf" );
         var opExit = this.FindControl<MenuItem>( "OpExit" );
-        var opAbout = this.FindControl<MenuItem>( "OpAbout" );
         var opFecha = this.FindControl<DatePicker>("DpFecha");
         opFecha.SelectedDate = new DateTimeOffset(DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy")));
         var opOpcion = this.FindControl<ComboBox>("CbOpcion");
@@ -49,7 +48,6 @@ public partial class actividadPorCamion : Window
         this.Chart.Values = generarNumeroTransportes(t, listaCamiones);
 
         opExit.Click += (_, _) => this.Close();
-        opAbout.Click += (_, _) => this.OnAbout();
         opFecha.SelectedDateChanged += (_, _) => this.FiltrarPorFecha(opFecha.SelectedDate, t, listaCamiones, opcionSalida);
         opOpcion.SelectionChanged += (_, _) => this.CambiarOpcion(opOpcion.SelectedIndex, opFecha.SelectedDate, t, listaCamiones);
 
@@ -64,7 +62,7 @@ public partial class actividadPorCamion : Window
     /// <param name="SelectedDate">Fecha seleccionada</param>
     /// <param name="transportes">Lista de transportes</param>
     /// <param name="listaCamiones">Lista de camiones</param>
-    private void CambiarOpcion(int indexOpcion, DateTimeOffset? SelectedDate, Transportes transportes, IEnumerable<string> listaCamiones)
+    private void CambiarOpcion(int indexOpcion, DateTimeOffset? SelectedDate, RegistroTransportes transportes, IEnumerable<string> listaCamiones)
     {
         if (indexOpcion == 0)
         {
@@ -84,29 +82,29 @@ public partial class actividadPorCamion : Window
     /// <param name="t">Lista de transportes.</param>
     /// <param name="listaCamiones">Lista de camiones.</param>
     /// <param name="opcionS">Opcion seleccionada para mostrar transportes por fecha de salida o fecha de entrega.</param>
-    private void FiltrarPorFecha(DateTimeOffset? mes, Transportes t, IEnumerable<string> listaCamiones, bool opcionS)
+    private void FiltrarPorFecha(DateTimeOffset? mes, RegistroTransportes t, IEnumerable<string> listaCamiones, bool opcionS)
     {
-        Transportes transportesFiltrados = new Transportes();
+        RegistroTransportes transportesFiltrados = new RegistroTransportes();
         if (mes.Value.Month == 0)
         {
             transportesFiltrados = t;
         }
         else
         {
-            foreach (var xTransporte in t.ListaTransportes)
+            foreach (var xTransporte in t)
             {
                 if (opcionS == true)
                 {
-                    if (xTransporte.FechaSalida.Month == mes.Value.Month && xTransporte.FechaEntrega.Year == mes.Value.Year)
+                    if (xTransporte.FechaSal.Month == mes.Value.Month && xTransporte.FechaSal.Year == mes.Value.Year)
                     {
-                        transportesFiltrados.ListaTransportes.Add(xTransporte);
+                        transportesFiltrados.Add(xTransporte);
                     }
                 }
                 else
                 {
-                    if (xTransporte.FechaEntrega.Month == mes.Value.Month && xTransporte.FechaEntrega.Year == mes.Value.Year)
+                    if (xTransporte.FechaEntre.Month == mes.Value.Month && xTransporte.FechaEntre.Year == mes.Value.Year)
                     {
-                        transportesFiltrados.ListaTransportes.Add(xTransporte);
+                        transportesFiltrados.Add(xTransporte);
                     }
                 }
             }
@@ -148,16 +146,16 @@ public partial class actividadPorCamion : Window
     /// <param name="t">Lista de transportes.</param>
     /// <param name="listaCamiones">Lista de camiones.</param>
     /// <returns>Array del numero de transportes.</returns>
-    private IEnumerable<int> generarNumeroTransportes(Transportes t, IEnumerable<string> listaCamiones)
+    private IEnumerable<int> generarNumeroTransportes(RegistroTransportes t, IEnumerable<string> listaCamiones)
     {
         int[] toret = new int[listaCamiones.Count()];
         int i = 0;
         
         foreach (var matriculaCamion in listaCamiones)
         {
-            foreach (var transporte in t.ListaTransportes)
+            foreach (var transporte in t)
             {
-                if (matriculaCamion == transporte.camion.Matricula)
+                if (matriculaCamion == transporte.Matricula)
                 {
                     toret[i] = toret[i] + 1;
                 }
@@ -174,17 +172,17 @@ public partial class actividadPorCamion : Window
     /// </summary>
     /// <param name="t">Lista de transportes.</param>
     /// <returns></returns>
-    private IEnumerable<string> generarListaCamiones(Transportes t)
+    private IEnumerable<string> generarListaCamiones(RegistroTransportes t)
     {
         List<String> idCamionesUnicos = new List<string>();
 
-        if (t.ListaTransportes.Count != 0)
+        if (t.Count != 0)
         {
-            foreach (var trans in t.ListaTransportes)
+            foreach (var trans in t)
             {
-                if (!idCamionesUnicos.Contains(trans.camion.Matricula))
+                if (!idCamionesUnicos.Contains(trans.Matricula))
                 {
-                    idCamionesUnicos.Add(trans.camion.Matricula);
+                    idCamionesUnicos.Add(trans.Matricula);
                 }
             }
         }
@@ -202,10 +200,6 @@ public partial class actividadPorCamion : Window
     /// <summary>
     /// Muestra la ventana sobre la aplicacion.
     /// </summary>
-    void OnAbout()
-    {
-        new AboutWindow().ShowDialog( this );
-    }
 
     void InitializeComponent()
     { 
@@ -214,7 +208,7 @@ public partial class actividadPorCamion : Window
         
     Chart Chart { get; }
 
-    private static readonly Transportes TransporteDefault = new Transportes();
+    private static readonly RegistroTransportes TransporteDefault = new RegistroTransportes();
 
     private bool opcionSalida = true;
 }

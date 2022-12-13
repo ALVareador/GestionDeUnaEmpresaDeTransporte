@@ -1,0 +1,154 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="615"
+        x:Class="ProyDIA.UI.TransporteDlg"
+        Title="TransporteDlg">
+
+	<StackPanel Margin="5">
+		
+		<Border
+			BorderThickness="1"
+			CornerRadius="3"
+			BorderBrush="Black"
+			VerticalAlignment="Stretch">
+
+			<StackPanel
+				Orientation="Vertical">
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Cliente"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<TextBox Margin="5" Name="EdCliente"></TextBox>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Matrícula"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<TextBox Margin="5" Name="EdMatricula"></TextBox>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Kilómetros"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<NumericUpDown Margin="5" 
+								   Name="EdKms"
+								   Minimum="1"
+								   Value="10"></NumericUpDown>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Tipo"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<ComboBox Margin="5" 
+							  Name="EdTipo"
+							  Width="200">
+						<ComboBoxItem Name="selMudanza">Mudanza</ComboBoxItem>
+						<ComboBoxItem Name="selTMercancias">Transporte de mercancias</ComboBoxItem>
+						<ComboBoxItem Name="selTVehiculos">Transporte de vehículos</ComboBoxItem>
+					</ComboBox>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Fecha de contratación"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<DatePicker Margin="5" Name="EdFechaContra"></DatePicker>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Fecha de salida"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<DatePicker Margin="5" Name="EdFechaSal"></DatePicker>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Fecha de entrega"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<DatePicker Margin="5" Name="EdFechaEntre" ></DatePicker>
+				</DockPanel>
+												
+			</StackPanel>
+			
+		</Border>
+
+		<Border
+			BorderThickness="1"
+			CornerRadius="3"
+			BorderBrush="Black"
+			VerticalAlignment="Stretch">
+
+			<StackPanel Orientation="Vertical">
+				
+				<Label Margin="5" Content="Configuración adicional"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Sueldo por hora"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<NumericUpDown Margin="5"
+								   Name="EdSueldo"
+								   Minimum="1"
+								   Value="10"></NumericUpDown>
+				</DockPanel>
+
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Precio del combustible por litro"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<NumericUpDown Margin="5"
+								   Name="EdPrecioLt"
+								   Minimum="1"
+								   Value="10"></NumericUpDown>
+				</DockPanel>
+
+				<DockPanel Margin="5">
+					<Label Margin="5" Content="Cantidad de litros por km"
+						   DockPanel.Dock="Left"
+						   HorizontalAlignment="Left"></Label>
+					<NumericUpDown Margin="5"
+								   Name="EdCantLtKm"
+								   Minimum="1"
+								   Value="10"></NumericUpDown>
+				</DockPanel>
+				
+				
+			</StackPanel>
+
+			
+			
+		</Border>
+
+		<StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="5">
+
+			<Button Name="BtCancel"
+                    Content="Cancel"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Center" />
+
+			<Button Name="BtOk"
+                    Content="Ok"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Center" />
+
+		</StackPanel>
+		
+	</StackPanel>
+	
+</Window>

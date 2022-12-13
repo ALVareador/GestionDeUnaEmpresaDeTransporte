@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="450"
+        x:Class="GestionDeUnaEmpresaDeTransporte.UI.Transportes.MainWindowTransportes"
+        Title="ProyDIA">
+	
+	<DockPanel HorizontalAlignment="Stretch"
+			   VerticalAlignment="Stretch">
+		<Menu
+        DockPanel.Dock="Top"
+        VerticalAlignment="Top">
+			<MenuItem Header="_Archivo">
+				<MenuItem Header="_Salir" Name="OpExit"/>
+			</MenuItem>
+			<MenuItem Header="Editar">
+				<MenuItem Header="_Insertar" Name="OpInsert"/>
+				<MenuItem Header="_Eliminar todo" Name="OpDeleteAll"/>
+			</MenuItem>
+		</Menu>
+		<Button DockPanel.Dock="Top"
+					Name="BtRegistrar"
+                    Content="Registrar nuevo transporte"
+					Margin="5"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+		<Label
+            DockPanel.Dock="Bottom"
+            Name="LblDesc"
+            Margin="5"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Stretch" />
+		<DockPanel VerticalAlignment="Stretch"
+				   Margin="5">
+			<Border Margin="5"
+					BorderThickness="1"
+					CornerRadius="3"
+					BorderBrush="Black">
+				<DataGrid Name="DtTransportes"
+						  Margin="5"
+						  IsReadOnly="True"
+						  AutoGenerateColumns="False"
+						  SelectionMode="Single">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Fecha Contratación" Binding="{Binding FechaContra}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Fecha Salida" Binding="{Binding FechaSal}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Fecha Entrega" Binding="{Binding FechaEntre}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Precio Final" Binding="{Binding PrecioFinal}"></DataGridTextColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Border>
+		</DockPanel>
+	</DockPanel>
+	
+</Window>
