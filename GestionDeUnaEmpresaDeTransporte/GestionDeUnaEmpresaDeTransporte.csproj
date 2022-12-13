@@ -25,13 +25,10 @@
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Core\Busquedas" />
       <Folder Include="Core\GestionDeClientes" />
       <Folder Include="Core\GestionDeFlota" />
       <Folder Include="Core\Graficos" />
       <Folder Include="Core\Transportes" />
-      <Folder Include="UI\Busquedas" />
-      <Folder Include="UI\GestionDeClientes" />
       <Folder Include="UI\GestionDeFlota" />
       <Folder Include="UI\Graficos" />
       <Folder Include="UI\Transportes" />
@@ -43,6 +40,61 @@
       </Compile>
       <Compile Update="UI\MainWindow.axaml.cs">
         <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeFlota\MainWindowFlota.axaml.cs">
+        <DependentUpon>MainWindowFlota.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="UI\GestionDeClientes\BusquedaDialog.axaml.cs">
+        <DependentUpon>MainWindowFlota.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeClientes\ClienteWindow.axaml.cs">
+        <DependentUpon>MainWindowFlota.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeClientes\EditDialog.axaml.cs">
+        <DependentUpon>MainWindowFlota.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeClientes\InsertDialog.axaml.cs">
+        <DependentUpon>MainWindowFlota.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\Disponibilidad.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\HistoricoCliente.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\MainWindowBusqueda.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\Ocupacion.axaml.cs">
+        <DependentUpon>InsertDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\ReservasPorCamion.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\ReservasPorCliente.axaml.cs">
+        <DependentUpon>ReservasPorCliente.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\TransportesPendientes.axaml.cs">
+        <DependentUpon>TransportesPendientes.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\BusquedaDialogUnico.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Busquedas\BusquedaDialogOcupacion.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

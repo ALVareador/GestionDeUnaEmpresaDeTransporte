@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GestionDeUnaEmpresaDeTransporte.UI.GestionDeClientes.ClienteWindow"
+        Title="GestionClientesUI">
+        <DockPanel Margin="5">
+                <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="_Archivo">
+                                <MenuItem Header="_Salir" Name="Salida" />
+                        </MenuItem>
+                        <MenuItem Header="_Operaciones">
+                                <MenuItem Header="_NuevoCliente" Name="insertaCliente"/>
+                                <MenuItem Header="_Busqueda" Name="buscaCliente"/>
+                        </MenuItem>
+                </Menu>
+                <StackPanel Margin="5">
+                        <Button Name="LimpiaBusqueda" Content="Limpiar busqueda" ></Button>
+                        <Button Name="Borrar" Content="Borrar" ></Button>
+                        <Button Name="Modificar" Content="Modificar" ></Button>
+                        <DataGrid Name="DtClients" AutoGenerateColumns="False" >
+                                <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                                Header= "Nif"
+                                                Binding="{Binding Nif}"/>
+                                        <DataGridTextColumn
+                                                Header= "Nombre"
+                                                Binding="{Binding Nombre}"/>
+                                        <DataGridTextColumn
+                                                Header= "Telefono"
+                                                Binding="{Binding Tlf}"/>
+                                        <DataGridTextColumn
+                                                Header= "Mail"
+                                                Binding="{Binding Mail}"/>
+                                        <DataGridTextColumn
+                                                Header= "Direccion Postal"
+                                                Binding="{Binding DirPostal}"/>
+                                </DataGrid.Columns>
+                        </DataGrid>
+                </StackPanel>
+        </DockPanel>
+</Window>

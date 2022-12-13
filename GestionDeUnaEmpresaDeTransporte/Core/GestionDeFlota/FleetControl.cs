@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using GestionDeUnaEmpresaDeTransporte.Core.GestionDeClientes;
+using GestionDeUnaEmpresaDeTransporte.Core.Transportes;
 
 namespace ControlFlota.Core;
 
@@ -71,6 +75,75 @@ public class FleetControl: ObservableCollection<Vehicle> {
         }
 
         return toret.ToString();
+    }
+    
+    public IEnumerable<Vehicle> busquedaDisponiblesFlota(RegistroTransportes transportes)
+    {
+        IList<Vehicle> toret = new List<Vehicle>();
+        IEnumerable<Transporte> disponibles = transportes.Where(x => x.FechaSal > DateTime.Now || x.FechaEntre < DateTime.Now);
+        foreach (var actual in disponibles)
+        {
+
+            if (vehiculoPorMatricula(actual.Matricula) != null)
+            {
+                toret.Add(vehiculoPorMatricula(actual.Matricula));
+            }
+            
+        }
+
+        return toret;
+    }
+    
+    public IEnumerable<Vehicle> busquedaDisponiblesConcreto(RegistroTransportes transportes,string marca)
+    {
+        IEnumerable<Vehicle> toret = busquedaDisponiblesFlota(transportes);
+
+        return toret.Where(x=> x.brand == marca);
+    }
+    
+    public IEnumerable<Vehicle> busquedaOcupacionAnho(RegistroTransportes transportes,string tiempo)
+    {
+        IEnumerable<Transporte> transportesOcupados = transportes.Where(x => x.FechaEntre.Year.ToString().Equals(tiempo));
+        IList<Vehicle> toret = new List<Vehicle>();
+        
+        foreach (var actual in transportesOcupados)
+        {
+            if (vehiculoPorMatricula(actual.Matricula) != null)
+            {
+                toret.Add(vehiculoPorMatricula(actual.Matricula));
+            }
+        }
+
+        return toret;
+    }
+    
+    public IEnumerable<Vehicle> busquedaOcupacionFecha(RegistroTransportes transportes,string tiempo)
+    {
+        IEnumerable<Transporte> transportesOcupados = transportes.Where(x => x.FechaEntre.Date.ToString().Equals(tiempo));
+        IList<Vehicle> toret = new List<Vehicle>();
+        
+        foreach (var actual in transportesOcupados)
+        {
+            if (vehiculoPorMatricula(actual.Matricula) != null)
+            {
+                toret.Add(vehiculoPorMatricula(actual.Matricula));
+            }
+        }
+
+        return toret;
+    }
+
+    private Vehicle vehiculoPorMatricula(string matricula)
+    {
+        foreach (var vehiculo in Items)
+        {
+            if (vehiculo.license.Equals(matricula))
+            {
+                return vehiculo;
+            }
+        }
+
+        return null;
     }
 
 }

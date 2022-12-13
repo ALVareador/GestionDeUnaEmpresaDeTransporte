@@ -1,14 +1,20 @@
+using System;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ControlFlota.Core;
 using fleetControlAvalonia;
+using GestionDeUnaEmpresaDeTransporte.Core.Busquedas;
 using GestionDeUnaEmpresaDeTransporte.Core.Transportes;
+using GestionDeUnaEmpresaDeTransporte.Core.GestionDeClientes;
 using GestionDeUnaEmpresaDeTransporte.Graficos;
+using GestionDeUnaEmpresaDeTransporte.UI.Busquedas;
+using GestionDeUnaEmpresaDeTransporte.UI.GestionDeClientes;
 using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
 using ProyDIA.UI;
+using ProyectoIndividualDia;
 
 namespace GestionDeUnaEmpresaDeTransporte.UI
 {
@@ -37,6 +43,22 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
             this.FleetControl = XmlFleetControl.RecuperaXml();
             dtTrips.Items = this.FleetControl;
             
+            //Cliente
+            var btInsertCliente = this.FindControl<Button>( "addButtonClient" );
+            var btModCliente = this.FindControl<Button>( "modButtonClient" );
+            var btDelCliente = this.FindControl<Button>( "delButtonClient" );
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            
+
+            this.RegistroClientes = new RegistroClientes();
+            this.RegistroClientes = ArchivoXML.fromXML();
+            dtClientes.Items = this.RegistroClientes;
+            
+            btInsertCliente.Click += (_, _) => this.OnInsertCliente();
+            btModCliente.Click += (_, _) => this.OnModCliente(dtClientes.SelectedItem);
+            btDelCliente.Click += (_, _) => this.OnDeleteCliente(dtClientes.SelectedItem);
+            
+            
             //Transportes
             var btRegistrar = this.FindControl<Button>("BtRegistrar");
             var dtTransportes = this.FindControl<DataGrid>("DtTransportes");
@@ -62,6 +84,194 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
 
             opActividadPorCamion.Click += (_, _) => abrirGraficaActividadPorCamion(RegistroTransportes);
             opGraficaComodidadPorCamion.Click += (_, _) => abrirGraficaComodidadPorCamion(FleetControl);
+            
+            //Busquedas
+            var btIniciarBusqueda = this.FindControl<Button>( "iniciarBusqueda" );
+            var btBorrarBusqueda = this.FindControl<Button>( "limpiaBusqueda" );
+            btIniciarBusqueda.Click += (_, _) => this.BusquedaBox();
+            btBorrarBusqueda.Click += (_, _) => this.RestartBusqueda();
+        }
+
+        private void RestartBusqueda()
+        {
+            var dtVehiculos = this.FindControl<DataGrid>( "vehicleGrid");
+            var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            dtTransportes.Items = this.RegistroTransportes.busquedaReservasCamionFlota();
+            dtClientes.Items = this.RegistroClientes.Clientes;
+            dtVehiculos.Items = this.FleetControl.ToArray();
+
+        }
+
+        public void BusquedaBox()
+        {
+            var tipoBusqueda = this.CampoBusqueda;
+            switch (tipoBusqueda)
+            {
+                case "Cliente": busquedaCliente();
+                    break;
+                case "Flota": ; 
+                    break;
+                case "Transporte": ; 
+                    break;
+                case "Transportes pendientes": busquedaTransPendientes(); 
+                    break;
+                case "Disponibilidad": busquedaDisponibilidad(); 
+                    break;
+                case "Historico cliente": busquedaHistoricoCliente(); 
+                    break;
+                case "Reservas cliente": busquedaReservasCliente(); 
+                    break;
+                case "Reservas camion": busquedaReservasCamion(); 
+                    break;
+                case "Ocupacion": busquedaOcupacion(); 
+                    break;
+            }
+        }
+
+        async void busquedaOcupacion()
+        {
+            BusquedaDialogOcupacion busquedaDialog = new BusquedaDialogOcupacion();
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            string campoBusqueda = busquedaDialog.CampoBusqueda;
+            var dtVehiculos = this.FindControl<DataGrid>( "vehicleGrid");
+            
+            if (campoBusqueda.Equals("Fecha"))
+            {
+                dtVehiculos.Items = this.FleetControl.busquedaOcupacionFecha(this.RegistroTransportes, campoBusqueda);
+            }
+            else
+            {
+                dtVehiculos.Items = this.FleetControl.busquedaOcupacionAnho(this.RegistroTransportes, campoBusqueda);
+            }
+        }
+
+        async void busquedaReservasCamion()
+        {
+            BusquedaDialogUnico busquedaDialog = new BusquedaDialogUnico("Matricula camión");
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+            
+            if (valorBusqueda.Length > 1)
+            {
+                dtTransportes.Items = this.RegistroTransportes.busquedaReservasCamionConcreto(valorBusqueda);
+            }
+            else
+            {
+                dtTransportes.Items = this.RegistroTransportes.busquedaReservasCamionFlota();
+            }
+        }
+
+        async void busquedaReservasCliente()
+        {
+            BusquedaDialogUnico busquedaDialog = new BusquedaDialogUnico("DNI cliente");
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+            
+            dtTransportes.Items = this.RegistroTransportes.busquedaReservasCliente(valorBusqueda);
+        }
+
+        async void busquedaHistoricoCliente()
+        {
+            BusquedaDialogUnico busquedaDialog = new BusquedaDialogUnico("DNI cliente");
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+            
+            dtTransportes.Items = this.RegistroTransportes.busquedaHistoricoCliente(valorBusqueda);
+            
+        }
+
+        async void busquedaDisponibilidad()
+        {
+            BusquedaDialogUnico busquedaDialog = new BusquedaDialogUnico("Marca");
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtVehiculos = this.FindControl<DataGrid>( "vehicleGrid");
+
+            if (valorBusqueda.Length > 1)
+            {
+                dtVehiculos.Items = this.FleetControl.busquedaDisponiblesConcreto(this.RegistroTransportes,valorBusqueda);
+            }
+            else
+            {
+                dtVehiculos.Items = this.FleetControl.busquedaDisponiblesFlota(this.RegistroTransportes);
+            }
+        }
+
+        async void busquedaTransPendientes()
+        {
+            BusquedaDialogUnico busquedaDialog = new BusquedaDialogUnico("Matricula");
+            await busquedaDialog.ShowDialog(this);
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+
+            if (valorBusqueda.Length > 1)
+            {
+                dtTransportes.Items = this.RegistroTransportes.busquedaTransportesPendientesConcreto(valorBusqueda);
+            }
+            else
+            {
+                dtTransportes.Items = this.RegistroTransportes.busquedaTransportesPendientesFlota();
+            }
+        }
+
+       
+
+        async void busquedaCliente()
+        {
+            BusquedaDialog busquedaDialog = new BusquedaDialog();
+            await busquedaDialog.ShowDialog(this);
+            string campoBusqueda = busquedaDialog.CampoBusqueda;
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            switch (campoBusqueda)
+            {
+                case "NIF":
+                    dtClientes.Items =  new RegistroClientes(this.RegistroClientes.busquedaPorNIF(valorBusqueda)).Clientes;
+                    break;
+                case "Nombre": 
+                    dtClientes.Items =  new RegistroClientes(this.RegistroClientes.busquedaPorNombre(valorBusqueda)).Clientes;
+                    break;
+                case "Tlf": 
+                    dtClientes.Items =  new RegistroClientes(this.RegistroClientes.busquedaPorTLF(valorBusqueda)).Clientes;
+                    break;
+                case "Mail": 
+                    dtClientes.Items =  new RegistroClientes(this.RegistroClientes.busquedaPorMail(valorBusqueda)).Clientes;
+                    break;
+                case "Postal": 
+                    dtClientes.Items =  new RegistroClientes(this.RegistroClientes.busquedaPorCodPostal(Int32.Parse(valorBusqueda))).Clientes;
+                    break;
+            }
+        }
+
+        private void OnDeleteCliente(object dtClientesSelectedItem)
+        {
+            this.RegistroClientes.Borra((Cliente)dtClientesSelectedItem);
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            dtClientes.Items = RegistroClientes.Clientes;
+        }
+
+        async void OnModCliente(object dtClientesSelectedItem)
+        {
+            Cliente selected = (Cliente)dtClientesSelectedItem;
+            EditDialog editDialog = new EditDialog(selected.Nif,selected.Nombre,selected.Tlf,selected.Mail,selected.DirPostal);
+            await editDialog.ShowDialog(this);
+            this.RegistroClientes.Modifica(new Cliente(editDialog.Nif,editDialog.Nombre,editDialog.Tlf,editDialog.Mail,editDialog.Postal));
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            dtClientes.Items = this.RegistroClientes.Clientes;
+        }
+
+        async void OnInsertCliente()
+        {
+            InsertDialog insertDialog = new InsertDialog();
+            await insertDialog.ShowDialog(this);
+            this.RegistroClientes.Inserta(new Cliente(insertDialog.Nif,insertDialog.Nombre,insertDialog.Tlf,insertDialog.Mail,insertDialog.Postal));
+            var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            dtClientes.Items = this.RegistroClientes.Clientes;
         }
 
         async private void abrirGraficaActividadPorCamion(RegistroTransportes registroTransportes)
@@ -269,6 +479,33 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         public RegistroTransportes RegistroTransportes
         {
             get;
+        }
+
+        public RegistroClientes RegistroClientes
+        {
+            get;
+        }
+        
+        public string CampoBusqueda
+        {
+            get
+            {
+                var selectedIndex = this.FindControl<ComboBox>("tipoBusqueda").SelectedIndex;
+                switch (selectedIndex)
+                {
+                    case 0: return "Cliente";
+                    case 1: return "Flota";
+                    case 2: return "Transporte";
+                    case 3: return "Transportes pendientes";
+                    case 4: return "Disponibilidad";
+                    case 5: return "Historico cliente";
+                    case 6: return "Reservas cliente";
+                    case 7: return "Reservas camion";
+                    case 8: return "Ocupacion";
+                }
+
+                return null;
+            }
         }
     }
 }

@@ -51,4 +51,6 @@ public class Vehicle{
         this.bed = bed;
         this.tv = tv;
     }
+    
+    
 }

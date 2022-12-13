@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ControlFlota.Core;
 
 namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
     public class RegistroTransportes: ObservableCollection<Transporte> {
@@ -59,5 +60,39 @@ namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
             this.InsertItem(position, nuevotr);
             this.Eliminar(position + 1);
         }
+        
+        public IEnumerable<Transporte> busquedaTransportesPendientesFlota()
+        {
+            return this.Items.Where(x => x.FechaSal >= DateTime.Now && x.FechaSal < DateTime.Now.AddDays(5) );
+        }
+        
+        public IEnumerable<Transporte> busquedaTransportesPendientesConcreto(string matricula)
+        {
+            return this.Items.Where(x => x.Matricula == matricula && x.FechaSal >= DateTime.Now && x.FechaSal < DateTime.Now.AddDays(5) );
+        }
+        
+        public IEnumerable<Transporte> busquedaHistoricoCliente(string dni)
+        {
+            return this.Items.Where(x => x.Cliente == dni );
+        }
+        
+        public IEnumerable<Transporte> busquedaReservasCliente(string dni)
+        {
+            return this.Items.Where(x => x.Cliente == dni && x.FechaSal > DateTime.Now );
+        }
+        
+        public IEnumerable<Transporte> busquedaReservasCamionConcreto(string matricula)
+        {
+            return this.Items.Where(x => x.Matricula == matricula );
+        }
+        
+        public IEnumerable<Transporte> busquedaReservasCamionFlota()
+        {
+            return this.Items;
+        }
+        
+        
+        
+        
     }
 }

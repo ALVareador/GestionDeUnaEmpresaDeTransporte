@@ -94,9 +94,9 @@
                                                            VerticalAlignment="Stretch">
         
                                                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                                                                <Button Name="addButton"> Add Vehicle </Button>
-                                                                <Button Name="modButton"> Modify Vehicle </Button>
-                                                                <Button Name="delButton"> Delete Vehicle </Button>
+                                                                <Button Name="addButton"> Nuevo Vehiculo </Button>
+                                                                <Button Name="modButton"> Modificar Vehiculo </Button>
+                                                                <Button Name="delButton"> Borrar Vehiculo </Button>
             
                                                         </StackPanel>
         
@@ -139,11 +139,51 @@
                                                 BorderBrush="Black"
                                                 Height="250"
                                                 Width="320">
+                                                <DockPanel HorizontalAlignment="Stretch"
+                                                           VerticalAlignment="Stretch">
+        
+                                                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                                                <Button Name="addButtonClient"> Nuevo Cliente </Button>
+                                                                <Button Name="modButtonClient"> Modificar Cliente </Button>
+                                                                <Button Name="delButtonClient"> Borrar Cliente </Button>
+            
+                                                        </StackPanel>
+        
+                                                        <Border    Margin="5"
+                                                                   BorderThickness="1"
+                                                                   CornerRadius="3"
+                                                                   BorderBrush="Black">
+
+                                                                <DataGrid Name="DtClients" 
+                                                                          Margin="5"
+                                                                          AutoGenerateColumns="False"
+                                                                          IsReadOnly="True"
+                                                                          SelectionMode="Single"
+                                                                          AlternatingRowBackground="Whitesmoke">
+                                                                        <DataGrid.Columns>
+                                                                                <DataGridTextColumn
+                                                                                        Header= "Nif"
+                                                                                        Binding="{Binding Nif}"/>
+                                                                                <DataGridTextColumn
+                                                                                        Header= "Nombre"
+                                                                                        Binding="{Binding Nombre}"/>
+                                                                                <DataGridTextColumn
+                                                                                        Header= "Telefono"
+                                                                                        Binding="{Binding Tlf}"/>
+                                                                                <DataGridTextColumn
+                                                                                        Header= "Mail"
+                                                                                        Binding="{Binding Mail}"/>
+                                                                                <DataGridTextColumn
+                                                                                        Header= "Direccion Postal"
+                                                                                        Binding="{Binding DirPostal}"/>
+                                                                        </DataGrid.Columns>
+                                                                </DataGrid>
+                                                        </Border>
+                                                </DockPanel>
                                                 
                                         </Border>
                                 </StackPanel>
                         </StackPanel>
-                        
                 </StackPanel>
                 <StackPanel>
                         <!--20% PANTALLA - Busquedas-->
@@ -153,8 +193,27 @@
                                 BorderBrush="Black"
                                 Height="500"
                                 Width="160">
-                                
+                                <StackPanel VerticalAlignment="Center">
+                                <ComboBox SelectedIndex="0"
+                                          Margin="5"
+                                          HorizontalAlignment="Stretch"
+                                          HorizontalContentAlignment="Center"
+                                          Name="tipoBusqueda">
+                                        <ComboBoxItem Content="Cliente" />
+                                        <ComboBoxItem Content="Flota" />
+                                        <ComboBoxItem Content="Transporte" />
+                                        <ComboBoxItem Content="Transportes pendientes" />
+                                        <ComboBoxItem Content="Disponibilidad" />
+                                        <ComboBoxItem Content="Historico cliente" />
+                                        <ComboBoxItem Content="Reservas cliente" />
+                                        <ComboBoxItem Content="Reservas camion" />
+                                        <ComboBoxItem Content="Ocupacion" />
+                                </ComboBox>
+                                        <Button Name="iniciarBusqueda" Content="Iniciar Busqueda" VerticalAlignment="Center" HorizontalAlignment="Center" ></Button>
+                                        <Button Name="limpiaBusqueda" Content="Borrar Busqueda" VerticalAlignment="Center" HorizontalAlignment="Center" ></Button>
+                                </StackPanel>
                         </Border>
+                        
                 </StackPanel>
         </DockPanel>
 </Window>
