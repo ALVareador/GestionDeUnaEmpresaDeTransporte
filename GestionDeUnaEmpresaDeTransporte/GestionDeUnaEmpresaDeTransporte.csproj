@@ -29,7 +29,6 @@
       <Folder Include="Core\GestionDeFlota" />
       <Folder Include="Core\Graficos" />
       <Folder Include="Core\Transportes" />
-      <Folder Include="UI\GestionDeFlota" />
       <Folder Include="UI\Graficos" />
       <Folder Include="UI\Transportes" />
     </ItemGroup>
@@ -94,6 +93,10 @@
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="UI\Busquedas\BusquedaDialogOcupacion.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\GestionDeFlota\BusquedaDialogVehiculo.axaml.cs">
         <DependentUpon>BusquedaDialog.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>

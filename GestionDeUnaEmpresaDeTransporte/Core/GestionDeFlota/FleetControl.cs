@@ -145,5 +145,27 @@ public class FleetControl: ObservableCollection<Vehicle> {
 
         return null;
     }
+    
+    public IEnumerable<Vehicle> busquedaPorMatricula(string matricula)
+    {
+        return this.Items.Where(x=> x.license == matricula);
+    }
+    
+    public IEnumerable<Vehicle> busquedaPorMarca(string marca)
+    {
+        return this.Items.Where(x=> x.brand == marca);
+    }
+    
+    public IEnumerable<Vehicle> busquedaPorModelo(string modelo)
+    {
+        return this.Items.Where(x=> x.model == modelo);
+    }
+    
+    public IEnumerable<Vehicle> busquedaPorConsumo(float consumoKM)
+    {
+        return this.Items.Where(x=> x.fuelPerKM == consumoKM);
+    }
+    
+    
 
 }

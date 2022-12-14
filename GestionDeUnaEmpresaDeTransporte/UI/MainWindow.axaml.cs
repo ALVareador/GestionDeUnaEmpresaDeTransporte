@@ -110,7 +110,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
             {
                 case "Cliente": busquedaCliente();
                     break;
-                case "Flota": ; 
+                case "Flota": busquedaVehiculo(); 
                     break;
                 case "Transporte": ; 
                     break;
@@ -127,6 +127,31 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
                 case "Ocupacion": busquedaOcupacion(); 
                     break;
             }
+        }
+
+        async void busquedaVehiculo()
+        {
+            BusquedaDialogVehiculo busquedaDialog = new BusquedaDialogVehiculo();
+            await busquedaDialog.ShowDialog(this);
+            string campoBusqueda = busquedaDialog.CampoBusqueda;
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtVehiculos = this.FindControl<DataGrid>("vehicleGrid");
+            switch (campoBusqueda)
+            {
+                case "Matricula":
+                    dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorMatricula(valorBusqueda));
+                    break;
+                case "Marca":
+                    dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorMarca(valorBusqueda));
+                    break;
+                case "Modelo":
+                    dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorModelo(valorBusqueda));
+                    break;
+                case "Consumo KM":
+                    dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorConsumo(float.Parse(valorBusqueda)));
+                    break;
+            }
+
         }
 
         async void busquedaOcupacion()
