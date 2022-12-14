@@ -28,7 +28,6 @@
       <Folder Include="Core\GestionDeClientes" />
       <Folder Include="Core\GestionDeFlota" />
       <Folder Include="Core\Transportes" />
-      <Folder Include="UI\Graficos" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="UI\App.axaml.cs">
@@ -72,6 +71,14 @@
       </Compile>
       <Compile Update="UI\Transportes\BusquedaDialogTransporte.axaml.cs">
         <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Graficos\actividadGeneral.axaml.cs">
+        <DependentUpon>actividadGeneral.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Graficos\actividadPorCliente.axaml.cs">
+        <DependentUpon>actividadPorCliente.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

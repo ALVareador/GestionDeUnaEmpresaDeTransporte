@@ -81,9 +81,13 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
 
             var opActividadPorCamion = this.FindControl<MenuItem>("OpActividadPorCamion");
             var opGraficaComodidadPorCamion = this.FindControl<MenuItem>("OpGraficaComodidadPorCamion");
+            var opActividadPorCliente = this.FindControl<MenuItem>("OpActividadPorCliente");
+            var opActividadGeneral = this.FindControl<MenuItem>("OpActividadGeneral");
 
             opActividadPorCamion.Click += (_, _) => abrirGraficaActividadPorCamion(RegistroTransportes);
             opGraficaComodidadPorCamion.Click += (_, _) => abrirGraficaComodidadPorCamion(FleetControl);
+            opActividadPorCliente.Click += (_, _) => abrirGraficaActividadPorCliente(RegistroClientes,RegistroTransportes);
+            opActividadGeneral.Click += (_, _) => abrirGraficaActividadGeneral(RegistroTransportes);
             
             //Busquedas
             var btIniciarBusqueda = this.FindControl<Button>( "iniciarBusqueda" );
@@ -361,6 +365,18 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         {
             var graficaComodidadPorCamion = new comodidadPorCamion(FleetControl);
             await graficaComodidadPorCamion.ShowDialog( this );
+        }
+        
+        async private void abrirGraficaActividadPorCliente(RegistroClientes clientes,RegistroTransportes transportes)
+        {
+            var graficaActividadPorCliente = new ActividadPorCliente(clientes,transportes);
+            await graficaActividadPorCliente.ShowDialog( this );
+        }
+        
+        async private void abrirGraficaActividadGeneral(RegistroTransportes transportes)
+        {
+            var graficaActividadGeneral = new ActividadGeneral(transportes);
+            await graficaActividadGeneral.ShowDialog( this );
         }
 
         private void OnDel()

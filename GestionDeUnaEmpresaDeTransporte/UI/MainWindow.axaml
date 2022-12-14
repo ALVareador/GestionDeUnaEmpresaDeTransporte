@@ -30,6 +30,10 @@
                                 
                                 <MenuItem Name="OpActividadPorCamion" 
                                           Header="_Actividad por camión" />
+                                <MenuItem Name="OpActividadGeneral" 
+                                          Header="_Actividad general" />
+                                <MenuItem Name="OpActividadPorCliente" 
+                                          Header="_Actividad por cliente" />
                         </MenuItem>
                 
                         <MenuItem Header="_Ayuda">

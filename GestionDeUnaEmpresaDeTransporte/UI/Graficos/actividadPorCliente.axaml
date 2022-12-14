@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="clr-namespace:GestionDeUnaEmpresaDeTransporte.Graficos"
+        xmlns:graficos="clr-namespace:GestionDeUnaEmpresaDeTransporte.UI.Graficos"
+        mc:Ignorable="d"
+        Width="500" Height="500"
+        MinWidth="700" MinHeight="700"
+        MaxWidth="1200" MaxHeight="1300"
+        x:Class="GestionDeUnaEmpresaDeTransporte.UI.Graficos.ActividadPorCliente"
+        Title="Grafico actividad por cliente">
+        
+        <DockPanel
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                
+                <StackPanel
+                        Orientation="Vertical"
+                        Margin="5"
+                        DockPanel.Dock="Top">
+                        <Menu DockPanel.Dock="Top" 
+                              VerticalAlignment="Top">
+                
+                                <MenuItem Header="_Archivo">
+                                        <MenuItem Name="OpExit" 
+                                                  Header="_Salir" />
+                                </MenuItem>
+                
+                                <MenuItem Header="_Ayuda">
+                                        <MenuItem Name="OpAbout" 
+                                                  Header="Acerca _de..."/>
+                                </MenuItem>
+                        </Menu>
+                        
+                        
+                        
+                        <StackPanel
+                                Margin="5"
+                                Orientation="Horizontal">
+                                
+                                <Label Margin="5" Content="Tipo" />
+                                <RadioButton Margin="5" Content="Por Mes" Name="RbMes" IsChecked="true"/>
+                                <RadioButton Margin="5" Content="Total" Name="RbTotal" />
+                                <StackPanel
+                                        Margin="5"
+                                        Orientation="Horizontal">
+                                        <Label Margin="5" Content="Fecha" />
+                                        <DatePicker Margin="5" Name="DpDate" DayVisible="False" MonthVisible="False"/>
+                                </StackPanel>
+                        </StackPanel>
+                        <StackPanel
+                                Margin="5"
+                                Orientation="Horizontal">
+                                <Label Margin="5" Content="Usuario" />
+                                <ComboBox SelectedIndex="0" Margin="5" Name="CbUs">
+                                        
+                                </ComboBox>
+                                        
+                        </StackPanel>
+                </StackPanel>
+                
+                <graficos:Chart
+                        Name="ChGrf"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+        </DockPanel>
+</Window>

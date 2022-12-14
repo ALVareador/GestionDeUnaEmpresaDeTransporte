@@ -131,7 +131,188 @@ namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
         }
         
 
+             public int findMes(DateTime d)
+    {
+        DateTime date = d.Date;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        
+        List<Transporte> l = tr.FindAll((t) => (t.FechaSal.Month == date.Month && t.FechaSal.Year == date.Year));
+        return l.Count;
+    }
+    
+    public int findAño(DateTime d)
+    {
+        DateTime date = d.Date;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        
+        List<Transporte> l = tr.FindAll((t) => (t.FechaSal.Year == date.Year));
+        return l.Count;
+    }
 
+    public List<int> getParaAño(DateTime d)
+    {
+        List<int> l = new List<int>();
+        for (int i = 0; i < 12; i++)
+        {
+            l.Add(findMes(d.AddMonths(i)));
+        }
+
+        return l;
+    }
+    
+    public List<int> getDesdeComienzo()
+    {
+        List<int> l = new List<int>();
+        DateTime date = getFechaAntigua();
+        date = date.Date;
+        int a = getFechaNueva().Year - date.Year;
+        for (int i = 0; i <= a; i++)
+        {
+            l.Add(findAño(date.AddYears(i)));
+            Console.WriteLine(date.AddYears(i));
+        }
+
+        return l;
+    }
+    
+    public int findPorClienteMes(DateTime d, String nif)
+    {
+        DateTime date = d.Date;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        List<Transporte> l = tr.FindAll((t) => (t.Cliente.Equals(nif) &&
+                                                  (t.FechaSal.Month == date.Month && t.FechaSal.Year == date.Year)));
+        return l.Count;
+    }
+    
+    public int findPorClienteAño(DateTime d, String nif)
+    {
+        DateTime date = d.Date;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        List<Transporte> l = tr.FindAll((t) => (t.Cliente.Equals(nif) &&
+                                                         t.FechaSal.Year == date.Year));
+        return l.Count;
+    }
+
+    public List<int> getPorClienteAño(DateTime d, String nif)
+    {
+        List<int> l = new List<int>();
+        for (int i = 0; i <= 12; i++)
+        {
+            l.Add(findPorClienteMes(d.AddMonths(i), nif));
+        }
+
+        return l;
+    }
+
+    
+    public List<int> getDesdeComienzoCliente(String nif)
+    {
+        List<int> l = new List<int>();
+        DateTime date = getFechaAntigua(nif);
+        date = date.Date;
+        int a = getFechaNueva(nif).Year - date.Year;
+        for (int i = 0; i <= a; i++)
+        {
+            l.Add(findPorClienteAño(date.AddYears(i), nif));
+            Console.WriteLine(date.AddYears(i));
+        }
+
+        return l;
+    }
+    
+    public DateTime getFechaAntigua()
+    {
+        DateTime fechaAnt;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        if (this.Count > 0){
+            tr.Sort((x, y) => DateTime.Compare(x.FechaSal, y.FechaSal));
+            fechaAnt = this[0].FechaSal;
+
+        }
+        else
+        {
+            fechaAnt = DateTime.Today;
+        }
+        return fechaAnt.Date;
+    }
+    
+    public DateTime getFechaAntigua(String nif)
+    {
+        DateTime fechaAnt;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        tr.Sort((x, y) => DateTime.Compare(x.FechaSal, y.FechaSal));
+        
+        List<Transporte> t = tr.FindAll((x) => (x.Cliente.Equals(nif)));
+        if (t.Count > 0){
+            fechaAnt = t[0].FechaSal;
+        }
+        else
+        {
+            fechaAnt = DateTime.Today;
+        }
+        return fechaAnt.Date;
+    }
+    
+    public DateTime getFechaNueva()
+    {
+        DateTime fechaN;
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        if (this.Count > 0){
+            tr.Sort((x, y) => DateTime.Compare(x.FechaSal, y.FechaSal));
+            fechaN = tr[tr.Count-1].FechaSal;
+        }
+        else
+        {
+            fechaN = DateTime.Today;
+        }
+        return fechaN.Date;
+    }
+    
+    public DateTime getFechaNueva(String nif)
+    {
+        DateTime fechaN;
+ 
+        List<Transporte> tr = new List<Transporte>(this.Items);
+        
+        tr.Sort((x, y) => DateTime.Compare(x.FechaSal, y.FechaSal));
+        List<Transporte> t = tr.FindAll((x) => (x.Cliente.Equals(nif)));
+        if (t.Count > 0)
+        {
+            fechaN = t[t.Count - 1].FechaSal;
+        }
+        else
+        {
+            fechaN = DateTime.Today;
+        }
+        return fechaN.Date;
+    }
+    
+    public List<string> getFechas(DateTime t)
+    {
+        DateTime date = t.Date;
+        List<string> l = new List<string>();
+        for (int i = 0; i < 12; i++)
+        {
+            l.Add(date.AddMonths(i).ToString("dd/MM"));
+        }
+
+        return l;
+    }
+    
+    public List<string> getAños()
+    {
+        DateTime date = this.getFechaAntigua();
+        List<string> l = new List<string>();
+        int a = getFechaNueva().Year - date.Year;
+        for (int i = 0; i <= a; i++)
+        {
+            l.Add(date.AddYears(i).Year.ToString());
+        }
+
+        return l;
+    }
+        
+    
 
 
     }
