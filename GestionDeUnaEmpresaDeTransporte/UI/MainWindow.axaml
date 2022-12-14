@@ -54,12 +54,24 @@
                                         Height="500"
                                         Width="1250">
                                         
-                                        <StackPanel>
+                                        <StackPanel >
                                                 <Button Name="BtRegistrar"
-                                                Content="Registrar nuevo transporte"
+                                                Content="Registrar transporte"
                                                 Margin="5"
                                                 HorizontalAlignment="Stretch"
                                                 HorizontalContentAlignment="Center"/>
+                              
+                                                        
+                                                <Button Name="BtEdit"
+                                                        Content="Modificar Transporte"
+                                                        Margin="5"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"></Button>
+                                                <Button Name="BtDelete"
+                                                        Content="Eliminar Transporte"
+                                                        Margin="5"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"></Button>
                                         
                                                 <Label Name="LblDesc"
                                                        Margin="5"

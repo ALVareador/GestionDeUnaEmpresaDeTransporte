@@ -58,7 +58,7 @@ namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
         public void Modificar_av(int position, Transporte nuevotr)
         {
             this.InsertItem(position, nuevotr);
-            this.Eliminar(position + 1);
+            //this.Eliminar(position + 1);
         }
         
         public IEnumerable<Transporte> busquedaTransportesPendientesFlota()

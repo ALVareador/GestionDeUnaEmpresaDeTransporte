@@ -63,16 +63,22 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
             var btRegistrar = this.FindControl<Button>("BtRegistrar");
             var dtTransportes = this.FindControl<DataGrid>("DtTransportes");
             var opDeleteAll = this.FindControl<MenuItem>("OpDeleteAll");
+            var btEdit = this.FindControl<Button>("BtEdit");
+            var btDelete = this.FindControl<Button>("BtDelete");
             
             Debug.Assert(opDeleteAll != null, "opDeleteAll not found in XAML");
             Debug.Assert(btRegistrar != null, "btRegistrar not found in XAML");
             Debug.Assert(dtTransportes != null, "dtTransportes not found in XAML");
+            Debug.Assert(btEdit != null, "btEdit not found in XAML");
+            Debug.Assert(btDelete != null, "btDelete not found in XAML");
 
             
             opDeleteAll.Click += (_, _) => this.OnDeleteAll();
             btRegistrar.Click += (_, _) => this.OnAdd();
             dtTransportes.SelectionChanged += (_, _) => this.OnTransporteSelected();
             this.Closed += (_, _) => this.OnClose();
+            btEdit.Click += (_, _) => this.OnEdit();
+            btDelete.Click += (_, _) => this.OnDelete();
             
             this.RegistroTransportes = XmlRegistroTransportes.RecuperaXml();
             dtTransportes.Items = this.RegistroTransportes;
@@ -95,6 +101,61 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
             btIniciarBusqueda.Click += (_, _) => this.BusquedaBox();
             btBorrarBusqueda.Click += (_, _) => this.RestartBusqueda();
         }
+
+        async private void OnEdit()
+        {
+            if (transporteSel != null)
+            {
+                var transporte = transporteSel;
+                var transporteEdit = new TransporteDlg(transporte);
+                await transporteEdit.ShowDialog(this);
+
+                if (!transporteEdit.IsCancelled)
+                {
+                    int index = RegistroTransportes.IndexOf(transporte);
+                    RegistroTransportes.Eliminar(index);
+                    var t = new Transporte(transporteEdit.Matricula,
+                        transporteEdit.Tipo, transporteEdit.Cliente,
+                        transporteEdit.FechaContra, transporteEdit.Kms,
+                        transporteEdit.FechaSal, transporteEdit.FechaEntre);
+                    t.SueldoHora = transporteEdit.SueldoHora;
+                    t.PrecioLitro = transporteEdit.PrecioLitro;
+                    t.CantLtKms = transporteEdit.CantLtKms;
+                    t.Update();
+                    RegistroTransportes.Modificar_av(index, t);
+                }
+            }
+
+            return;
+        }
+
+        private void OnDelete()
+        {
+            if (transporteSel != null)
+            {
+                var trans = transporteSel;
+                if (RegistroTransportes.Contains(trans))
+                {
+                    RegistroTransportes.Remove(trans);
+                }
+            }
+
+            return;
+        }
+
+        public Transporte transporteSel
+        {
+            get;
+            set;
+        }
+
+        public int transporteSelIndex
+        {
+            get;
+            set;
+        }
+
+
 
         private void RestartBusqueda()
         {
@@ -455,6 +516,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         {
             new XmlFleetControl( this.FleetControl ).GuardaXml();
             new XmlRegistroTransportes(this.RegistroTransportes).GuardaXml();
+            new ArchivoXML(this.RegistroClientes).toXML("clientes.xml");
         }
         
 
@@ -538,38 +600,15 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         void OnTransporteSelected()
         {
             var dtTransportes = this.FindControl<DataGrid>("DtTransportes");
-        
 
-            Debug.Assert(dtTransportes != null, "dtTransportes not found in XAML");
+            transporteSel = (Transporte)dtTransportes.SelectedItem;
+            transporteSelIndex = dtTransportes.SelectedIndex;
 
-            Transporte? transporte = (Transporte) dtTransportes.SelectedItem;
-            int position = dtTransportes.SelectedIndex;
-        
-            var transporteDlg = new TransporteDlg(transporte);
-            transporteDlg.ShowDialog(this);
-
-            if (!transporteDlg.IsCancelled)
-            {
-                var t = new Transporte(transporteDlg.Matricula,
-                    transporteDlg.Tipo, transporteDlg.Cliente,
-                    transporteDlg.FechaContra, transporteDlg.Kms,
-                    transporteDlg.FechaSal, transporteDlg.FechaEntre);
-                t.SueldoHora = transporteDlg.SueldoHora;
-                t.PrecioLitro = transporteDlg.PrecioLitro;
-                t.CantLtKms = transporteDlg.CantLtKms;
-                t.Update();
-
-                this.RegistroTransportes.Modificar_av(position, t);
-            }
             
-            //Al seleccionar un transporte se busca automaticamente el vehiculo y cliente asociados
-           /* var dtClientes = this.FindControl<DataGrid>( "DtClients");
-            var dtVehiculos = this.FindControl<DataGrid>( "vehicleGrid" );
-            dtClientes.Items = new RegistroClientes(this.RegistroClientes.busquedaPorNIF(transporte.Cliente));
-            dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorMatricula(transporte.Matricula)); */
 
-
+            return;
         }
+
 
         void OnDeleteAll()
         {
