@@ -4,8 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
         x:Class="GestionDeUnaEmpresaDeTransporte.UI.MainWindow"
-        Width="1720"
-        Height="1000"
+        Width="1520"
+        Height="800"
         Title="GestionDeUnaEmpresaDeTransporte">
         
         <DockPanel
@@ -52,7 +52,7 @@
                                         CornerRadius="3"
                                         BorderBrush="Black"
                                         Height="500"
-                                        Width="1450">
+                                        Width="1250">
                                         
                                         <StackPanel>
                                                 <Button Name="BtRegistrar"
@@ -92,7 +92,7 @@
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
-                                                Height="450"
+                                                Height="250"
                                                 Width="725">
                                                 
                                                 <DockPanel HorizontalAlignment="Stretch"
@@ -142,8 +142,8 @@
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
-                                                Height="450"
-                                                Width="725">
+                                                Height="250"
+                                                Width="525">
                                                 <DockPanel HorizontalAlignment="Stretch"
                                                            VerticalAlignment="Stretch">
         
@@ -196,7 +196,7 @@
                                 BorderThickness="1"
                                 CornerRadius="3"
                                 BorderBrush="Black"
-                                Height="950"
+                                Height="750"
                                 Width="260">
                                 <StackPanel VerticalAlignment="Center">
                                 <ComboBox SelectedIndex="0"
