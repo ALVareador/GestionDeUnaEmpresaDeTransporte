@@ -137,30 +137,20 @@ namespace ProyDIA.UI
         {
             get
             {
-                var edTipo = this.FindControl<ComboBox>("EdTipo");
-                var selMudanza = this.FindControl<ComboBoxItem>("selMudanza");
-                var selTMercancias = this.FindControl<ComboBoxItem>("selTMercancias");
-                var selTVehiculos = this.FindControl<ComboBoxItem>("selTVehiculos");
-
-                edTipo.SelectedItem = selMudanza;
+                var edTipo = this.FindControl<ComboBox>("EdTipo").SelectedIndex;
+                
                 var toret = "No definido";
 
                 Debug.Assert(edTipo != null, "edTipo not found in XAML!");
-
-                if(edTipo.SelectedItem == selMudanza)
+                
+                switch (edTipo)
                 {
-                    toret = "Mudanza";
-                }
-                else if(edTipo.SelectedItem == selTMercancias)
-                {
-                    toret = "Transporte de mercancias";
-                }
-                else if(edTipo.SelectedItem == selTVehiculos)
-                {
-                    toret = "Transporte de vehiculos";
+                    case 0: return "Mudanza";
+                    case 1: return "Transporte de mercancias";
+                    case 2: return "Transporte de vehiculos";
                 }
 
-                return toret;
+                return "Mudanza";
             }
         }
 

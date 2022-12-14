@@ -30,7 +30,6 @@
       <Folder Include="Core\Graficos" />
       <Folder Include="Core\Transportes" />
       <Folder Include="UI\Graficos" />
-      <Folder Include="UI\Transportes" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="UI\App.axaml.cs">
@@ -97,6 +96,10 @@
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="UI\GestionDeFlota\BusquedaDialogVehiculo.axaml.cs">
+        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Transportes\BusquedaDialogTransporte.axaml.cs">
         <DependentUpon>BusquedaDialog.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>

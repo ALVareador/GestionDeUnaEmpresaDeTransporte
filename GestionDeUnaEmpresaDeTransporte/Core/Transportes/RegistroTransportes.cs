@@ -91,8 +91,48 @@ namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
             return this.Items;
         }
         
+        public IEnumerable<Transporte> busquedaPorTipoTransporte(string tipo)
+        {
+            return this.Items.Where(x => x.Tipo == tipo );
+        }
         
+        public IEnumerable<Transporte> busquedaPorDNICliente(string dni)
+        {
+            return this.Items.Where(x => x.Cliente == dni );
+        }
         
+        public IEnumerable<Transporte> busquedaPorFechaContrato(DateTime fechaContrato)
+        {
+            return this.Items.Where(x => x.FechaContra == fechaContrato );
+        }
+        public IEnumerable<Transporte> busquedaPorFechaSalida(DateTime fechaSalida)
+        {
+            return this.Items.Where(x => x.FechaSal == fechaSalida );
+        }
         
+        public IEnumerable<Transporte> busquedaPorFechaEntrega(DateTime fechaEntrega)
+        {
+            return this.Items.Where(x => x.FechaEntre == fechaEntrega );
+        }
+        
+        public IEnumerable<Transporte> busquedaPorImporteDia(double importeDia)
+        {
+            return this.Items.Where(x => x.ImporteDia == importeDia );
+        }
+        
+        public IEnumerable<Transporte> busquedaPorImporteKM(double importeKm)
+        {
+            return this.Items.Where(x => x.ImporteKm == importeKm );
+        }
+        
+        public IEnumerable<Transporte> busquedaPorIVA(double iva)
+        {
+            return this.Items.Where(x => x.IvaAplicado == iva );
+        }
+        
+
+
+
+
     }
 }

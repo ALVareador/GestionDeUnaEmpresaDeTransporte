@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
@@ -13,6 +14,7 @@ using GestionDeUnaEmpresaDeTransporte.UI.Busquedas;
 using GestionDeUnaEmpresaDeTransporte.UI.GestionDeClientes;
 using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
+using GestionDeUnaEmpresaDeTransporte.UI.Transportes;
 using ProyDIA.UI;
 using ProyectoIndividualDia;
 
@@ -103,6 +105,19 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
 
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            RestartBusqueda();
+            XmlRegistroTransportes xmlRegistroTransportes = new XmlRegistroTransportes(this.RegistroTransportes);
+            xmlRegistroTransportes.GuardaXml();
+            XmlFleetControl xmlFleetControl = new XmlFleetControl(this.FleetControl);
+            xmlFleetControl.GuardaXml();
+            ArchivoXML archivoXml = new ArchivoXML(this.RegistroClientes);
+            archivoXml.toXML("clientes");
+            
+            base.OnClosing(e);
+        }
+
         public void BusquedaBox()
         {
             var tipoBusqueda = this.CampoBusqueda;
@@ -112,7 +127,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
                     break;
                 case "Flota": busquedaVehiculo(); 
                     break;
-                case "Transporte": ; 
+                case "Transporte": busquedaTransportes(); 
                     break;
                 case "Transportes pendientes": busquedaTransPendientes(); 
                     break;
@@ -125,6 +140,45 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
                 case "Reservas camion": busquedaReservasCamion(); 
                     break;
                 case "Ocupacion": busquedaOcupacion(); 
+                    break;
+            }
+        }
+
+        async void busquedaTransportes()
+        {
+            BusquedaDialogTransporte busquedaDialog = new BusquedaDialogTransporte();
+            await busquedaDialog.ShowDialog(this);
+            string campoBusqueda = busquedaDialog.CampoBusqueda;
+            string valorBusqueda = busquedaDialog.ValorBusqueda;
+            var dtTransporte = this.FindControl<DataGrid>("DtTransportes");
+            switch (campoBusqueda)
+            {
+                case "Matricula":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaReservasCamionConcreto(valorBusqueda));
+                    break;
+                case "Tipos transporte":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorTipoTransporte(valorBusqueda));
+                    break;
+                case "DNI cliente":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorDNICliente(valorBusqueda));
+                    break;
+                case "Fecha contrato":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorFechaContrato(DateTime.Parse(valorBusqueda)));
+                    break;
+                case "Fecha salida":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorFechaSalida(DateTime.Parse(valorBusqueda)));
+                    break;
+                case "Fecha entrega":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorFechaEntrega(DateTime.Parse(valorBusqueda)));
+                    break;
+                case "Importe por dia":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorImporteDia(float.Parse(valorBusqueda)));
+                    break;
+                case "Importe por kilometro":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorImporteKM(float.Parse(valorBusqueda)));
+                    break;
+                case "IVA aplicado":
+                    dtTransporte.Items = new RegistroTransportes(this.RegistroTransportes.busquedaPorIVA(float.Parse(valorBusqueda)));
                     break;
             }
         }
