@@ -6,7 +6,6 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ControlFlota.Core;
 using fleetControlAvalonia;
-using GestionDeUnaEmpresaDeTransporte.Core.Busquedas;
 using GestionDeUnaEmpresaDeTransporte.Core.Transportes;
 using GestionDeUnaEmpresaDeTransporte.Core.GestionDeClientes;
 using GestionDeUnaEmpresaDeTransporte.Graficos;
@@ -16,7 +15,6 @@ using GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 using GestionDeUnaEmpresaDeTransporte.UI.Graficos;
 using GestionDeUnaEmpresaDeTransporte.UI.Transportes;
 using ProyDIA.UI;
-using ProyectoIndividualDia;
 
 namespace GestionDeUnaEmpresaDeTransporte.UI
 {

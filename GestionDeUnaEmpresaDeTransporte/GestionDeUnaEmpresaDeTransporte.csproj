@@ -27,7 +27,6 @@
     <ItemGroup>
       <Folder Include="Core\GestionDeClientes" />
       <Folder Include="Core\GestionDeFlota" />
-      <Folder Include="Core\Graficos" />
       <Folder Include="Core\Transportes" />
       <Folder Include="UI\Graficos" />
     </ItemGroup>
@@ -57,34 +56,6 @@
       </Compile>
       <Compile Update="UI\GestionDeClientes\InsertDialog.axaml.cs">
         <DependentUpon>MainWindowFlota.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\Disponibilidad.axaml.cs">
-        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\HistoricoCliente.axaml.cs">
-        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\MainWindowBusqueda.axaml.cs">
-        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\Ocupacion.axaml.cs">
-        <DependentUpon>InsertDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\ReservasPorCamion.axaml.cs">
-        <DependentUpon>BusquedaDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\ReservasPorCliente.axaml.cs">
-        <DependentUpon>ReservasPorCliente.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="UI\Busquedas\TransportesPendientes.axaml.cs">
-        <DependentUpon>TransportesPendientes.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="UI\Busquedas\BusquedaDialogUnico.axaml.cs">
