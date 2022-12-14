@@ -25,6 +25,7 @@ namespace ProyDIA.UI
             var edPrecioLt = this.FindControl<NumericUpDown>("EdPrecioLt");
             var edCantLtKm = this.FindControl<NumericUpDown>("EdCantLtKm");
 
+            
             edCliente.Text = t.Cliente;
             edMatricula.Text = t.Matricula;
             edKms.Value = t.Kms;

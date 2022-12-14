@@ -46,8 +46,8 @@
                                         BorderThickness="1"
                                         CornerRadius="3"
                                         BorderBrush="Black"
-                                        Height="250"
-                                        Width="640">
+                                        Height="500"
+                                        Width="1450">
                                         
                                         <StackPanel>
                                                 <Button Name="BtRegistrar"
@@ -87,8 +87,8 @@
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
-                                                Height="250"
-                                                Width="320">
+                                                Height="450"
+                                                Width="725">
                                                 
                                                 <DockPanel HorizontalAlignment="Stretch"
                                                            VerticalAlignment="Stretch">
@@ -137,8 +137,8 @@
                                                 BorderThickness="1"
                                                 CornerRadius="3"
                                                 BorderBrush="Black"
-                                                Height="250"
-                                                Width="320">
+                                                Height="450"
+                                                Width="725">
                                                 <DockPanel HorizontalAlignment="Stretch"
                                                            VerticalAlignment="Stretch">
         
@@ -191,8 +191,8 @@
                                 BorderThickness="1"
                                 CornerRadius="3"
                                 BorderBrush="Black"
-                                Height="500"
-                                Width="160">
+                                Height="950"
+                                Width="260">
                                 <StackPanel VerticalAlignment="Center">
                                 <ComboBox SelectedIndex="0"
                                           Margin="5"

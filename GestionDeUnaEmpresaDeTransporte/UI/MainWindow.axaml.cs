@@ -548,6 +548,13 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
                 this.RegistroTransportes.Modificar_av(position, t);
             }
             
+            //Al seleccionar un transporte se busca automaticamente el vehiculo y cliente asociados
+           /* var dtClientes = this.FindControl<DataGrid>( "DtClients");
+            var dtVehiculos = this.FindControl<DataGrid>( "vehicleGrid" );
+            dtClientes.Items = new RegistroClientes(this.RegistroClientes.busquedaPorNIF(transporte.Cliente));
+            dtVehiculos.Items = new FleetControl(this.FleetControl.busquedaPorMatricula(transporte.Matricula)); */
+
+
         }
 
         void OnDeleteAll()
