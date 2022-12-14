@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -37,32 +38,41 @@ public class ArchivoXML
 
     public static RegistroClientes fromXML()
     {
-        XElement raiz = XElement.Load("clientes.xml");
-
-        if (!raiz.HasElements)
-        {
-            throw new XmlException("El archivo no contiene datos");
-        }
-
         RegistroClientes toret = new RegistroClientes();
-
-        foreach (var cliente in raiz.Elements(EtqCliente))
+        try
         {
-            string nif = (string)cliente.Element(EtqNIF);
-            string nombre = (string)cliente.Element(EtqNombre);
-            string tlf = (string)cliente.Element(EtqTlf);
-            string mail = (string)cliente.Element(EtqMail);
-            int dirPostal = (int)cliente.Element(EtqDirPostal);
+            XElement raiz = XElement.Load("clientes.xml");
 
-            if (nif==null || nombre==null || tlf == null || mail == null || dirPostal == null)
+            if (!raiz.HasElements)
             {
-                throw new XmlException("Los datos del archivo son incorrectos");
+                throw new XmlException("El archivo no contiene datos");
             }
+
+            toret = new RegistroClientes();
+
+            foreach (var cliente in raiz.Elements(EtqCliente))
+            {
+                string nif = (string)cliente.Element(EtqNIF);
+                string nombre = (string)cliente.Element(EtqNombre);
+                string tlf = (string)cliente.Element(EtqTlf);
+                string mail = (string)cliente.Element(EtqMail);
+                int dirPostal = (int)cliente.Element(EtqDirPostal);
+
+                if (nif == null || nombre == null || tlf == null || mail == null || dirPostal == null)
+                {
+                    throw new XmlException("Los datos del archivo son incorrectos");
+                }
+
+                toret.Inserta(new Cliente(nif, nombre, tlf, mail, dirPostal));
+            }
+        }
+        catch (Exception e)
+        {
             
-            toret.Inserta(new Cliente(nif,nombre,tlf,mail,dirPostal));
         }
 
         return toret;
+        
     }
 
 }
