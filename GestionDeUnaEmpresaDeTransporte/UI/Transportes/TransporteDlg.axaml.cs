@@ -75,6 +75,7 @@ namespace ProyDIA.UI
 
             btOk.Click += (_, _) => this.OnExit();
             btCancel.Click += (_, _) => this.OnCancelClicked();
+            this.Closed += (_, _) => this.OnExit();
 
             edFechaContra.SelectedDate = DateTime.Now;
             
