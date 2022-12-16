@@ -61,13 +61,13 @@ public class XmlFleetControl
                 { 
                     switch((string) node.Attribute("type")){
                         case "fleetControlAvalonia.Van":
-                            toret.Add(new Van((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateOnly.Parse((string) node.Attribute("adquisition")), DateOnly.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
+                            toret.Add(new Van((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateTime.Parse((string) node.Attribute("adquisition")), DateTime.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
                             break;
                         case "fleetControlAvalonia.Truck":
-                            toret.Add(new Truck((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateOnly.Parse((string) node.Attribute("adquisition")), DateOnly.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
+                            toret.Add(new Truck((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateTime.Parse((string) node.Attribute("adquisition")), DateTime.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
                             break;
                         case "fleetControlAvalonia.Artruck":
-                            toret.Add(new Artruck((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateOnly.Parse((string) node.Attribute("adquisition")), DateOnly.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
+                            toret.Add(new Artruck((string) node.Attribute("brand"), (string) node.Attribute("license"), (string) node.Attribute("modelName"), (float) node.Attribute("fuel"), DateTime.Parse((string) node.Attribute("adquisition")), DateTime.Parse((string) node.Attribute("fabrication")), (bool) node.Attribute("wifi"), (bool) node.Attribute("bluetooth"), (bool) node.Attribute("AC"), (bool) node.Attribute("beds"), (bool) node.Attribute("TV")));
                             break;
                     }
             

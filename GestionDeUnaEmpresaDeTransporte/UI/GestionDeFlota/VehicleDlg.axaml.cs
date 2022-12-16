@@ -15,7 +15,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
         }
         
         public VehicleDlg(string brand = DefaultBrand, string license = DefaultLicense, string model = DefaultModel, 
-            float fuelPerKM = DefaultFuelPerKM, DateOnly adqDate = default, DateOnly FabrDate = default, 
+            float fuelPerKM = DefaultFuelPerKM, DateTime adqDate = default, DateTime FabrDate = default, 
             bool wifi = DefaultWifi, bool bluetooth = DefaultBluetooth, bool ac = DefaultAc, bool bed = DefaultBed, bool tv = DefaultTv)
         {
             InitializeComponent();
@@ -41,6 +41,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
             btOk.Click += (_, _) => this.OnExit();
             btCancel.Click += (_, _) => this.OnCancelClicked();
+            this.Closed += (_, _) => this.OnCancelClicked();
 
             edBrand.Text = brand;
             edLicense.Text = license;
@@ -54,7 +55,7 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
             edBed.IsChecked = bed;
             edTv.IsChecked = tv;
             edVehicleType.SelectedIndex = 0;
-            this.IsCancelled = false;
+            this.IsCancelled = true;
         }
 
         void InitializeComponent()
@@ -65,12 +66,12 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
 
         void OnCancelClicked()
         {
-            this.IsCancelled = true;
-            this.OnExit();
+            this.Close();
         }
 
         void OnExit()
         {
+            this.IsCancelled = false;
             this.Close();
         }
 
@@ -90,19 +91,19 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
             get => (float) this.FindControl<NumericUpDown>( "EdFuelPerKM" ).Value;
         }
         
-        public DateOnly AdqDate {
+        public DateTime AdqDate {
             get
             {
                 DateTimeOffset? offset = this.FindControl<DatePicker>( "EdAdqDate" ).SelectedDate;
-                return DateOnly.FromDateTime(offset.HasValue ? offset.Value.DateTime : DateTime.MaxValue);
+                return offset.HasValue ? offset.Value.DateTime : DateTime.MaxValue;
             }
         }
         
-        public DateOnly AdqFabrDate {
+        public DateTime AdqFabrDate {
             get
             {
                 DateTimeOffset? offset = this.FindControl<DatePicker>( "EdAdqFabrDate" ).SelectedDate;
-                return DateOnly.FromDateTime(offset.HasValue ? offset.Value.DateTime : DateTime.MaxValue);
+                return offset.HasValue ? offset.Value.DateTime : DateTime.MaxValue;
             }
         }
         
@@ -142,8 +143,8 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeFlota;
         const string DefaultLicense = "xxx0000";
         const string DefaultModel = "Esei";
         const float DefaultFuelPerKM = 0;
-        static DateOnly DefaultAdqDate = new DateOnly(1,1,1);
-        static DateOnly DefaultFabrDate = new DateOnly(1,1,1);
+        static DateTime DefaultAdqDate = new DateTime(1,1,1);
+        static DateTime DefaultFabrDate = new DateTime(1,1,1);
         const bool DefaultWifi = false;
         const bool DefaultBluetooth = false;
         const bool DefaultAc = false;

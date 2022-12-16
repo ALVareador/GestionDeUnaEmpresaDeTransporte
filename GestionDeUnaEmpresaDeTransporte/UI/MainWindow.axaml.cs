@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using Avalonia;
@@ -411,9 +413,12 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
         {
             InsertDialog insertDialog = new InsertDialog();
             await insertDialog.ShowDialog(this);
-            this.RegistroClientes.Inserta(new Cliente(insertDialog.Nif,insertDialog.Nombre,insertDialog.Tlf,insertDialog.Mail,insertDialog.Postal));
-            var dtClientes = this.FindControl<DataGrid>( "DtClients");
-            dtClientes.Items = this.RegistroClientes.Clientes;
+            if (!insertDialog.Nif.Equals(""))
+            {
+                this.RegistroClientes.Inserta(new Cliente(insertDialog.Nif,insertDialog.Nombre,insertDialog.Tlf,insertDialog.Mail,insertDialog.Postal));
+                var dtClientes = this.FindControl<DataGrid>( "DtClients");
+                dtClientes.Items = this.RegistroClientes.Clientes; 
+            }
         }
 
         async private void abrirGraficaActividadPorCamion(RegistroTransportes registroTransportes)
@@ -591,6 +596,9 @@ namespace GestionDeUnaEmpresaDeTransporte.UI
                 t.Update();
 
                 this.RegistroTransportes.Add(t);
+                var dtTransportes = this.FindControl<DataGrid>( "DtTransportes");
+                dtTransportes.Items = new List<Transporte>(this.RegistroTransportes.Transportes);
+                
             }
         
 

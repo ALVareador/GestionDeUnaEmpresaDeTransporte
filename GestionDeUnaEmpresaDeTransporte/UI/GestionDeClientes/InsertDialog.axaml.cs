@@ -28,23 +28,63 @@ namespace GestionDeUnaEmpresaDeTransporte.UI.GestionDeClientes {
 
         
         public string Nif {
-            get => this.FindControl<TextBox>( "EdNif" ).Text.Trim();
+            get
+            {
+                if (this.FindControl<TextBox>("EdNif").Text != null)
+                {
+                    return this.FindControl<TextBox>( "EdNif" ).Text.Trim();
+                }
+
+                return "";
+            } 
         }
         
         public string Nombre {
-            get => this.FindControl<TextBox>( "EdNombre" ).Text.Trim();
+            get
+            {
+                if (this.FindControl<TextBox>("EdNombre").Text != null)
+                {
+                    return this.FindControl<TextBox>( "EdNombre" ).Text.Trim();
+                }
+
+                return "";
+            } 
         }
         
         public string Tlf {
-            get => this.FindControl<TextBox>( "EdTelefono" ).Text.Trim();
+            get
+            {
+                if (this.FindControl<TextBox>("EdTelefono").Text != null)
+                {
+                    return this.FindControl<TextBox>( "EdTelefono" ).Text.Trim();
+                }
+
+                return "";
+            } 
         }
         
         public string Mail {
-            get => this.FindControl<TextBox>( "EdMail" ).Text.Trim();
+            get
+            {
+                if (this.FindControl<TextBox>("EdMail").Text != null)
+                {
+                    return this.FindControl<TextBox>( "EdMail" ).Text.Trim();
+                }
+
+                return "";
+            } 
         }
         
         public int Postal {
-            get => Int32.Parse(this.FindControl<TextBox>( "EdDirPostal" ).Text.Trim()); 
+            get
+            {
+                if (this.FindControl<TextBox>("EdDirPostal").Text != null)
+                {
+                    return Int32.Parse(this.FindControl<TextBox>( "EdDirPostal" ).Text.Trim()); 
+                }
+
+                return 0;
+            } 
         }
 
         private void InitializeComponent()

@@ -26,6 +26,8 @@ namespace GestionDeUnaEmpresaDeTransporte.Core.Transportes {
             this.CopyTo(toret, 0);
             return toret;
         }
+        
+        public IList<Transporte> Transportes => new List<Transporte>(this.Items);
 
         public void Eliminar (int posicion) {
             this.RemoveAt(posicion);

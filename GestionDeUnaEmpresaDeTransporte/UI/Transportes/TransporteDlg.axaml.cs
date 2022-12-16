@@ -79,7 +79,7 @@ namespace ProyDIA.UI
 
             edFechaContra.SelectedDate = DateTime.Now;
             
-            this.IsCancelled = false;
+            this.IsCancelled = true;
 
         }
 
@@ -91,13 +91,13 @@ namespace ProyDIA.UI
 
         void OnExit()
         {
+            this.IsCancelled = false;
             this.Close();
         }
 
         void OnCancelClicked()
         {
-            this.IsCancelled = true;
-            this.OnExit();
+            this.Close();
         }
 
         public string Cliente

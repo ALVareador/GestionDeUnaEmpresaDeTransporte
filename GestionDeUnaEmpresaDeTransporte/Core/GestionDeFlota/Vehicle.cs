@@ -16,10 +16,10 @@ public class Vehicle{
     public float fuelPerKM{
         get; set;
     }
-    public DateOnly adqDate{
+    public DateTime adqDate{
         get; set;
     }
-    public DateOnly fabrDate{
+    public DateTime fabrDate{
         get; set;
     }
     public bool wifi{
@@ -38,7 +38,7 @@ public class Vehicle{
         get; set;
     }
 
-    public Vehicle(string brand, string license, string modelName, float fuel, DateOnly adq, DateOnly fabr, bool wifi, bool bt, bool ac, bool bed, bool tv){
+    public Vehicle(string brand, string license, string modelName, float fuel, DateTime adq, DateTime fabr, bool wifi, bool bt, bool ac, bool bed, bool tv){
         this.brand = brand;
         this.license = license;
         model = modelName;
